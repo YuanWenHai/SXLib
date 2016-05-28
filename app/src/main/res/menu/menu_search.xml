@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/book_list_menu_search"
+        android:title="@string/search"
+        android:icon="@drawable/ic_search_white_24dp"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/book_list_menu_sort_by_date_asc"
+        android:title="@string/ascending_sort"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/book_list_menu_sort_by_date_desc"
+        android:title="@string/descending_sort"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/book_list_menu_sort_by_matching"
+        android:title="@string/matching_sort"
+        app:showAsAction="never"/>
+</menu>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/user_operation" android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation_renew_book"
+            android:title="@string/renew_book"/>
+    </group>
+    <group android:id="@+id/other_operation" android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation_search_book"
+            android:title="@string/search_book"/>
+    </group>
+</menu>

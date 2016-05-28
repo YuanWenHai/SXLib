@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/book_detail_table_call_no"
+            tools:text="山西省图书馆"
+            style="@style/tableItem"/>
+        <TextView
+            android:id="@+id/book_detail_table_bar_code"
+            tools:text="山西省图书馆"
+            style="@style/tableItem"/>
+        <TextView
+            android:id="@+id/book_detail_table_state"
+            tools:text="山西省图书馆"
+            style="@style/tableItem"/>
+        <TextView
+            android:id="@+id/book_detail_table_return_date"
+            tools:text="山西省图书馆"
+            style="@style/tableItem"/>
+        <TextView
+            android:id="@+id/book_detail_table_lib"
+            tools:text="山西省图书馆"
+            style="@style/tableItem"/>
+        <TextView
+            android:id="@+id/book_detail_table_position"
+            tools:text="山西省图书馆"
+            style="@style/tableItem"/>
+
+</LinearLayout>
