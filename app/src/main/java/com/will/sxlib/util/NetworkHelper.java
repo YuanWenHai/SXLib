@@ -29,7 +29,7 @@ public class NetworkHelper {
     /**
      * 正序
      */
-    public static final int SORT_BY_DATE_ASC = 0;
+    public static final int SORT_BY_DATE_ASC = 2;
     /**
      * 倒序
      */
@@ -37,8 +37,13 @@ public class NetworkHelper {
     /**
      * 匹配度
      */
-    public static final int SORT_BY_MATCHING = 2;
+    public static final int SORT_BY_MATCHING = 0;
 
+    public static final int SEARCH_BY_TITLE = 3;
+
+    public static final int SEARCH_BY_AUTHOR = 4;
+
+    public static final int SEARCH_BY_DEFAULT = 5;
     private static final String SEARCH_COVER_URL = "http://api.interlib.com.cn/interlibopac/websearch/metares?cmdACT=getImages&isbns=";//加上isbn
     private static final String SEARCH_STATE_URL = "http://opac.lib.sx.cn/opac/api/holding/";//加code
     private static final String KEY_SEARCH_URL_PART_1 = "http://opac.lib.sx.cn/opac/search?q=";//加上关键字
@@ -48,6 +53,17 @@ public class NetworkHelper {
     private static final String KEY_SEARCH_URL_PART_2_SORT_BY_DATE = "&searchType=standard&isFacet=true&view=standard&rows=10&sortWay=pubdate_sort&sortOrder=";
     //这里加上页数
     private static final String KEY_SEARCH_URL_PART_3_SORT_BY_DATE = "&hasholding=1&f_curlibcode=0101&searchWay0=marc&q0=&logical0=AND&page=";
+    //升降序,desc/asc
+    private static final String SEARCH_SEGMENT_SORT_ORDER_4 = "&sortOrder=";
+    //按照时间排序
+    private static final String SEARCH_SEGMENT_SORT_WAY_3 = "&rows=10&curlibcode=0101&hasholding=1&searchWay0=marc&q0=&logical0=AND&sortWay=";
+    /**
+     * 搜索规则,匹配度/score；作者/author;题名/title
+     */
+    private static final String SEARCH_SEGMENT_SEARCH_WAY_2 = "&searchType=standard&isFacet=true&view=standard&searchWay=";
+    //页数
+    private static final String SEARCH_SEGMENT_SEARCH_PAGE_5 ="&page=";
+    private static final String SEARCH_HOST_1 = "http://opac.lib.sx.cn/opac/search?q=";
     private  OkHttpClient client;
     private Handler handler;
     private Context context;
@@ -74,15 +90,28 @@ public class NetworkHelper {
      * @param sort 排序方式
      * @param callback callback
      */
-    public void keywordSearch(String key, int page,int sort, final KeySearchCallback callback){
+    public void keywordSearch(String key, int page,int sort,int searchWay, final KeySearchCallback callback){
         StringBuilder builder = new StringBuilder();
-        builder.append(KEY_SEARCH_URL_PART_1).append(key);
+        builder.append(SEARCH_HOST_1).append(key);
+        if(searchWay == SEARCH_BY_AUTHOR){
+            builder.append(SEARCH_SEGMENT_SEARCH_WAY_2).append("author");
+        }else if (searchWay == SEARCH_BY_TITLE){
+            builder.append(SEARCH_SEGMENT_SEARCH_WAY_2).append("title");
+        } else{
+            builder.append(SEARCH_SEGMENT_SEARCH_WAY_2);
+        }
         if(sort == SORT_BY_DATE_ASC){
-            builder.append(KEY_SEARCH_URL_PART_2_SORT_BY_DATE).append("asc").append(KEY_SEARCH_URL_PART_3_SORT_BY_DATE).append(page);
+            //升序,ascending
+            builder.append(SEARCH_SEGMENT_SORT_WAY_3).append("pubdate_sort").append(SEARCH_SEGMENT_SORT_ORDER_4)
+                    .append("asc").append(SEARCH_SEGMENT_SEARCH_PAGE_5).append(page);
         }else if (sort == SORT_BY_DATE_DESC){
-            builder.append(KEY_SEARCH_URL_PART_2_SORT_BY_DATE).append("desc").append(KEY_SEARCH_URL_PART_3_SORT_BY_DATE).append(page);
+            //降序,descending
+            builder.append(SEARCH_SEGMENT_SORT_WAY_3).append("pubdate_sort").append(SEARCH_SEGMENT_SORT_ORDER_4)
+                    .append("desc").append(SEARCH_SEGMENT_SEARCH_PAGE_5).append(page);
         }else if (sort == SORT_BY_MATCHING){
-            builder.append(KEY_SEARCH_URL_PART_2_SORT_BY_MATCHING).append(page);
+            //默认搜索，根据匹配度排列
+            builder.append(SEARCH_SEGMENT_SORT_WAY_3).append("score").append(SEARCH_SEGMENT_SORT_ORDER_4)
+                    .append("desc").append(SEARCH_SEGMENT_SEARCH_PAGE_5).append(page);
         }
         String url = builder.toString();
         Request request = new Request.Builder().url(url).build();

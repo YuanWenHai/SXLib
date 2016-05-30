@@ -32,4 +32,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'com.miguelcatalan:materialsearchview:1.4.0' //search view with toolbar
     compile 'com.github.arimorty:floatingsearchview:1.1.2'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile 'com.hannesdorfmann.smoothprogressbar:library:1.0.0'
 }

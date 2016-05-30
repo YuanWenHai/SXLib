@@ -4,7 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="grey">#888888</color>
+    <color name="lightGrey">#cccccc</color>
     <color name="black">#333333</color>
     <color name="darkBlack">#111111</color>
     <color name="greyBlack">#555555</color>
+    <color name="white">#eeeeee</color>
+    <color name="transparent">#00000000</color>
+    <color name="logo_bg_color">#484443</color>
 </resources>

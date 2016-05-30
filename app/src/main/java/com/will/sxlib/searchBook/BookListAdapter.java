@@ -37,6 +37,7 @@ public class BookListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private int page = 0;
     private boolean isEnd;
     private int sort;
+    private int searchWay;
     public BookListAdapter (Context context){
         this.context = context;
         data = new ArrayList<>();
@@ -56,16 +57,17 @@ public class BookListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * @param keyword 关键词
      * @param callback callback
      */
-    public void search(String keyword, final int sort, final LoadDataCallback callback){
+    public void search(String keyword, final int sort, int searchWay,final LoadDataCallback callback){
         this.keyword = keyword;
-        helper.keywordSearch(keyword, 1,sort, new NetworkHelper.KeySearchCallback() {
+        this.sort = sort;
+        this.searchWay = searchWay;
+        helper.keywordSearch(keyword, 1,sort,searchWay, new NetworkHelper.KeySearchCallback() {
             @Override
             public void onResponse(List<Book> books, String count) {
                 data.clear();
                 data.addAll(books);
                 total = count;
                 page = 1;
-                BookListAdapter.this.sort = sort;
                 isEnd = books.size() < 10;
                 //notifyItemRangeChanged(0,data.size());
                 notifyDataSetChanged();
@@ -83,7 +85,7 @@ public class BookListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * 加载更多，此方法必须在调用search方法之后再使用，否则无keyword数据。
      */
     public void loadMore(){
-        helper.keywordSearch(keyword, page+1, sort,new NetworkHelper.KeySearchCallback() {
+        helper.keywordSearch(keyword, page+1, sort,searchWay,new NetworkHelper.KeySearchCallback() {
             @Override
             public void onResponse(List<Book> books, String total) {
                 page++;

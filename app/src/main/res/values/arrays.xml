@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="colors">
+        <item>@color/colorPrimaryDark</item>
+        <item>@color/colorAccent</item>
+        <item>@android:color/holo_green_light</item>
+        <item>@color/logo_bg_color</item>
+    </integer-array>
+</resources>

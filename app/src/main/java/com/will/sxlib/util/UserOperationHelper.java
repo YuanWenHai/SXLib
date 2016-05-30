@@ -62,16 +62,31 @@ public class UserOperationHelper {
             @Override
             public void onFailure(Request request, IOException e) {
                 Log.e("连接失败！","····");
-                loginCallback.onFailure(ErrorCode.CONNECTION_FAILED);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loginCallback.onFailure(ErrorCode.CONNECTION_FAILED);
+                    }
+                });
             }
             @Override
             public void onResponse( Response response) throws IOException {
                if(!response.toString().contains("http://opac.lib.sx.cn/opac/reader/doLogin")){
                    getUserNameFromHtml(response.body().string());
-                   loginCallback.onSuccess();
+                   handler.post(new Runnable() {
+                       @Override
+                       public void run() {
+                           loginCallback.onSuccess();
+                       }
+                   });
                    Log.e("登陆成功","login success!");
                }else{
-                   loginCallback.onFailure(ErrorCode.PASSWORD_INVALID);
+                  handler.post(new Runnable() {
+                      @Override
+                      public void run() {
+                          loginCallback.onFailure(ErrorCode.PASSWORD_INVALID);
+                      }
+                  });
                }
             }
         });
@@ -249,7 +264,7 @@ public class UserOperationHelper {
     }
     public interface RenewCallback{
         /**
-         * 因为资源的问题，数据取值从1开始，0为网页上的checkBox...
+         * 因为资源的问题，数据取值从1开始，size-1结束，也就是说，第一个和最后一个是无用数据。大概是网页上的checkBox之类...
          * @param mapList mapList，每个map为一行借阅数据
          * @param headerList 标题map，顺序与map中的相对应
          */

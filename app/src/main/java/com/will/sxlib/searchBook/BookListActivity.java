@@ -23,6 +23,7 @@ public class BookListActivity extends BaseActivity implements BookListAdapter.Lo
     private BookListAdapter adapter;
     private MaterialSearchView searchView;
     private String keyword;
+    private int searchWay = 0;
     @Override
     protected void onCreate(Bundle SavedInstanceState){
         super.onCreate(SavedInstanceState);
@@ -42,7 +43,7 @@ public class BookListActivity extends BaseActivity implements BookListAdapter.Lo
             @Override
             public boolean onQueryTextSubmit(String query) {
                 keyword = query;
-                adapter.search(query, NetworkHelper.SORT_BY_MATCHING,BookListActivity.this);
+                adapter.search(query, NetworkHelper.SORT_BY_MATCHING,NetworkHelper.SEARCH_BY_DEFAULT,BookListActivity.this);
                 searchView.closeSearch();
                 return true;
             }
@@ -54,7 +55,8 @@ public class BookListActivity extends BaseActivity implements BookListAdapter.Lo
         });
         toolbar.setTitle("搜索中···");
         toolbar.setLayoutTransition(new LayoutTransition());
-        keyword = getIntent().getStringExtra("keyword");
+        keyword = getIntent().getStringExtra("query");
+        searchWay = getIntent().getIntExtra("mode",0);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -66,7 +68,7 @@ public class BookListActivity extends BaseActivity implements BookListAdapter.Lo
         adapter = new BookListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter.search(keyword,NetworkHelper.SORT_BY_MATCHING,this);
+        adapter.search(keyword,NetworkHelper.SORT_BY_MATCHING,searchWay,this);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -79,13 +81,13 @@ public class BookListActivity extends BaseActivity implements BookListAdapter.Lo
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.book_list_menu_sort_by_date_asc:
-                adapter.search(keyword,NetworkHelper.SORT_BY_DATE_ASC,this);
+                adapter.search(keyword,NetworkHelper.SORT_BY_DATE_ASC,searchWay,this);
                 return true;
             case R.id.book_list_menu_sort_by_date_desc:
-                adapter.search(keyword,NetworkHelper.SORT_BY_DATE_DESC,this);
+                adapter.search(keyword,NetworkHelper.SORT_BY_DATE_DESC,searchWay,this);
                 return true;
             case R.id.book_list_menu_sort_by_matching:
-                adapter.search(keyword,NetworkHelper.SORT_BY_MATCHING,this);
+                adapter.search(keyword,NetworkHelper.SORT_BY_MATCHING,searchWay,this);
                 return true;
             default:
                 return false;
