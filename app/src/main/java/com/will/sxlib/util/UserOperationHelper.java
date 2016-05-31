@@ -10,6 +10,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
+import com.will.sxlib.bean.MyBook;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,9 +23,7 @@ import java.net.CookiePolicy;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Will on 2016/5/23.
@@ -42,7 +41,14 @@ public class UserOperationHelper {
     private String account;
     private String password;
     private String userName = "匿名用户";
-    public UserOperationHelper(Context context,String account,String password){
+    private static UserOperationHelper instance;
+    public static UserOperationHelper getInstance(Context context,String account,String password){
+        if(instance == null){
+            instance = new UserOperationHelper(context,account,password);
+        }
+        return instance;
+    }
+    private UserOperationHelper(Context context,String account,String password){
         userClient = new OkHttpClient();
         CookieManager manager = new CookieManager();
         manager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
@@ -112,11 +118,11 @@ public class UserOperationHelper {
             public void onResponse(Response response) throws IOException {
                 String str = response.body().string();
                 if(isLogined(str)){
-                    final List<Map<Integer,String>> list = getDataFromHtml(str);
+                    final List<MyBook> list = getDataFromHtml(str);
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            callback.onResponse(list,headers);
+                            callback.onResponse(list);
                         }
                     });
                 }else{
@@ -205,10 +211,10 @@ public class UserOperationHelper {
      * @param html htmlString
      * @return listMap； 每个map代表一行借阅数据
      */
-    private List<Map<Integer,String>> getDataFromHtml(String html){
-        List<Map<Integer ,String>> list = new ArrayList<>();
-        Map<Integer,String> map;
+    private List<MyBook> getDataFromHtml(String html){
+        List<MyBook> list = new ArrayList<>();
         Document document = Jsoup.parse(html);
+        MyBook myBook;
         Elements table = document.select("table#contentTable");
         Elements tr = table.select("tr");
         for (Element element :tr){
@@ -224,11 +230,18 @@ public class UserOperationHelper {
                     continue;
                 }
             }
-            map = new HashMap<>();
-            for(int i = 0; i < element.children().size(); i++){
-               map.put(i,element.children().get(i).text());
-           }
-            list.add(map);
+            myBook = new MyBook();
+            Elements children  = element.children();
+            myBook.setBarCode(headers.get(1)+": "+children.get(1).text());
+            myBook.setTitle(headers.get(2)+": "+children.get(2).text());
+            myBook.setCallNo(headers.get(3)+": "+children.get(3).text());
+            myBook.setLocal(headers.get(4)+": "+children.get(4).text());
+            myBook.setType(headers.get(5)+": "+children.get(5).text());
+            myBook.setVolumeInfo(headers.get(6)+": "+children.get(6).text());
+            myBook.setLoanDate(headers.get(7)+": "+children.get(7).text());
+            myBook.setReturnDate(headers.get(8)+": "+children.get(8).text());
+            myBook.setRenewCount(headers.get(9)+": "+children.get(9).text());
+            list.add(myBook);
         }
         return list;
     }
@@ -264,11 +277,10 @@ public class UserOperationHelper {
     }
     public interface RenewCallback{
         /**
-         * 因为资源的问题，数据取值从1开始，size-1结束，也就是说，第一个和最后一个是无用数据。大概是网页上的checkBox之类...
-         * @param mapList mapList，每个map为一行借阅数据
-         * @param headerList 标题map，顺序与map中的相对应
+         *
+         * @param list bookList
          */
-        void onResponse(List<Map<Integer,String>> mapList,List<String> headerList);
+        void onResponse(List<MyBook> list);
         void onFailure(ErrorCode code);
     }
 

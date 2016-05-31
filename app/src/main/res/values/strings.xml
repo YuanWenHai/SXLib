@@ -5,8 +5,8 @@
     <string name="renew_book">我的借阅</string>
     <string name="search_book">书籍检索</string>
     <string name="search">搜索</string>
-    <string name="ascending_sort">按照日期——正序</string>
-    <string name="descending_sort">按照日期——倒序</string>
+    <string name="ascending_sort">出版日期——正序</string>
+    <string name="descending_sort">出版日期——倒序</string>
     <string name="matching_sort">按照匹配程度</string>
     <string name="call_no">索书号</string>
     <string name="bar_code">条码号</string>

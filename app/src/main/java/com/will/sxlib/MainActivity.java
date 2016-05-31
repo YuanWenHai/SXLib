@@ -1,6 +1,7 @@
 package com.will.sxlib;
 
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -21,12 +22,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.will.sxlib.base.BaseActivity;
+import com.will.sxlib.myBook.MyBookFragment;
 import com.will.sxlib.searchBook.SearchFragment;
 import com.will.sxlib.util.ErrorCode;
 import com.will.sxlib.util.UserOperationHelper;
-
-import java.util.List;
-import java.util.Map;
 
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
@@ -37,6 +36,7 @@ public class MainActivity extends BaseActivity{
     private TextView userName;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
+    private FragmentManager fragmentManager = getFragmentManager();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +44,7 @@ public class MainActivity extends BaseActivity{
         initializeView();
         setupArrowIndex();
         switchNavigationView();
-        FragmentManager manager = getFragmentManager();
-        manager.beginTransaction().replace(R.id.fragment_container,new SearchFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container,new SearchFragment()).commit();
     }
     public void changeDrawerState(){
         if(drawerLayout.isDrawerOpen(GravityCompat.START)){
@@ -81,7 +80,7 @@ public class MainActivity extends BaseActivity{
                 final String passwordStr = passwordEdit.getText().toString();
                 if(!accountStr.isEmpty() && !passwordStr.isEmpty()){
                     progressBar.setVisibility(View.VISIBLE);
-                    final UserOperationHelper helper = new UserOperationHelper(MainActivity.this,accountStr,passwordStr);
+                    final UserOperationHelper helper = UserOperationHelper.getInstance(MainActivity.this,accountStr,passwordStr);
                     helper.login(new UserOperationHelper.LoginCallback() {
                         @Override
                         public void onSuccess() {
@@ -157,6 +156,7 @@ public class MainActivity extends BaseActivity{
                                     sp.edit().clear().apply();
                                     userName.setText("匿名读者");
                                     showToast("已退出");
+                                    changeDrawerState();
                                 }
                             });
                             builder.setNegativeButton("取消",null);
@@ -164,17 +164,20 @@ public class MainActivity extends BaseActivity{
                         }
                         break;
                     case R.id.navigation_item_my_book:
-                        new UserOperationHelper(MainActivity.this,"01010001906773","6557150").getLoanData(new UserOperationHelper.RenewCallback() {
-                            @Override
-                            public void onResponse(List<Map<Integer, String>> mapList, List<String> headerList) {
-
+                        if(!isLogined()){
+                            showToast("未登录！");
+                        }else{
+                            if(fragmentManager.findFragmentByTag("myBook") == null) {
+                                fragmentManager.beginTransaction().replace(R.id.fragment_container, new MyBookFragment(), "myBook").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
                             }
-
-                            @Override
-                            public void onFailure(ErrorCode code) {
-
-                            }
-                        });
+                            drawerLayout.closeDrawer(GravityCompat.START);
+                        }
+                        break;
+                    case R.id.navigation_item_search:
+                        if(fragmentManager.findFragmentByTag("search") == null) {
+                            fragmentManager.beginTransaction().replace(R.id.fragment_container, new SearchFragment(), "search").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
+                        }
+                        drawerLayout.closeDrawer(GravityCompat.START);
                 }
                 return true;
             }

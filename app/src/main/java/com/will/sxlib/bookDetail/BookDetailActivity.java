@@ -57,6 +57,17 @@ public class BookDetailActivity extends BaseActivity {
                 bookInfo.setVisibility(View.VISIBLE);
                 //
                 BookDetailAdapter adapter = new BookDetailAdapter(BookDetailActivity.this,book.getBookNumber());
+                adapter.setLoadCallback(new BookDetailAdapter.LoadCallback() {
+                    @Override
+                    public void onSuccess() {
+                        getSupportActionBar().setTitle("详情");
+                    }
+
+                    @Override
+                    public void onFailure(ErrorCode code) {
+                        getSupportActionBar().setTitle("载入组件失败");
+                    }
+                });
                 recyclerView.setAdapter(adapter);
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                     TransitionManager.beginDelayedTransition(root,new Slide().setDuration(500));
@@ -85,7 +96,7 @@ public class BookDetailActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         //
         Toolbar toolbar = (Toolbar) findViewById(R.id.book_detail_toolbar);
-        toolbar.setTitle("详情");
+        toolbar.setTitle("加载中···");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

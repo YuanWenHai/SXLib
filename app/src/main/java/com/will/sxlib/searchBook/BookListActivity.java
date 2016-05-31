@@ -95,8 +95,11 @@ public class BookListActivity extends BaseActivity implements BookListAdapter.Lo
     }
     @Override
     public void onSuccess(){
-        getSupportActionBar().setTitle("共计"+adapter.getBookCount()+"条");
-        showToast(adapter.getBookCount());
+        if(adapter.getBookCount().equals("")){
+            getSupportActionBar().setTitle("未发现符合的条目");
+        }else{
+            getSupportActionBar().setTitle("共计"+adapter.getBookCount()+"条");
+        }
     }
     @Override
     public void onFailure(ErrorCode code){
