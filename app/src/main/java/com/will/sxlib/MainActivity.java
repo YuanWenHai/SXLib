@@ -56,6 +56,10 @@ public class MainActivity extends BaseActivity{
         setupNavigationViewClickEvent();
         switchNavigationItems(SEARCH);
     }
+
+    /**
+     * 更改drawer的状态,方便从fragment中调用
+     */
     public void changeDrawerState(){
         if(drawerLayout.isDrawerOpen(GravityCompat.START)){
             drawerLayout.closeDrawer(GravityCompat.START);
@@ -63,6 +67,10 @@ public class MainActivity extends BaseActivity{
             drawerLayout.openDrawer(GravityCompat.START);
         }
     }
+
+    /**
+     * 初始化view
+     */
     private void initializeView(){
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -72,6 +80,10 @@ public class MainActivity extends BaseActivity{
         userName = (TextView) header.findViewById(R.id.drawer_header_user_name);
         userName.setText(sp.getString("userName","匿名读者"));
     }
+
+    /**
+     * 展示登录dialog，保存dialog实例
+     */
     private void showLoginDialog(){
         if(loginDialog == null){
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -127,6 +139,10 @@ public class MainActivity extends BaseActivity{
         }
         loginDialog.show();
     }
+
+    /**
+     * 初始化header中的箭头按钮，点击控制登录/修改密码这两个item的出现与隐藏事件。
+     */
     private void setupArrowIndex(){
         arrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,6 +167,10 @@ public class MainActivity extends BaseActivity{
             }
         });
     }
+
+    /**
+     * 处理drawer中item的点击事件
+     */
     private void setupNavigationViewClickEvent(){
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -160,20 +180,7 @@ public class MainActivity extends BaseActivity{
                         if(!hasAccountInfo()){
                             showLoginDialog();
                         }else{
-                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                            builder.setTitle("退出确认");
-                            builder.setMessage("确定要退出账号登陆吗？");
-                            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    sp.edit().clear().apply();
-                                    userName.setText("匿名读者");
-                                    showToast("已退出");
-                                    switchNavigationItems(SEARCH);
-                                }
-                            });
-                            builder.setNegativeButton("取消",null);
-                            builder.create().show();
+                           showLogoutDialog();
                         }
                         break;
                     case R.id.navigation_item_my_book:
@@ -201,6 +208,32 @@ public class MainActivity extends BaseActivity{
             }
         });
     }
+
+    /**
+     * 展示注销界面，这个方法用于在login/logout的点击事件中，检测到用户已登录时调用。
+     */
+    private void showLogoutDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("退出确认");
+        builder.setMessage("确定要退出账号登陆吗？");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                sp.edit().clear().apply();
+                userName.setText("匿名读者");
+                showToast("已退出");
+                switchNavigationItems(SEARCH);
+            }
+        });
+        builder.setNegativeButton("取消",null);
+        builder.create().show();
+    }
+
+    /**
+     * 控制item之间的跳转，因为并没有用replace处理fragment的切换，所以代码有些冗余，
+     * 但这样可以避免fragment的重复创建，提升用户体验
+     * @param which 被点击的item
+     */
     public void switchNavigationItems(int which){
         Fragment fragment;
        switch (which){
@@ -252,6 +285,11 @@ public class MainActivity extends BaseActivity{
                break;
        }
     }
+
+    /**
+     * 隐藏其他的fragment显示
+     * @param which 除了which，其余全部隐藏
+     */
     private void hideOtherFragments(int which){
         switch (which){
             case 0:
@@ -280,6 +318,13 @@ public class MainActivity extends BaseActivity{
                 break;
         }
     }
+
+    /**
+     * 将user信息写入sharedPreferences，在登录dialog中调用
+     * @param account 账号
+     * @param password 密码
+     * @param userName 用户名
+     */
     private void writeUserInfo2SP(String account,String password,String userName){
         editor.putString("account",account);
         editor.putString("password",password);
@@ -296,6 +341,10 @@ public class MainActivity extends BaseActivity{
             editor = sp.edit();
         }
     }
+
+    /**
+     * 展示修改密码dialog
+     */
     private void showChangePasswordDialog(){
         if(changePasswordDialog == null){
             final SharedPreferences sp = getSharedPreferences("config",MODE_PRIVATE);
@@ -360,12 +409,21 @@ public class MainActivity extends BaseActivity{
         }
         changePasswordDialog.show();
     }
+
+    /**
+     * 检验sharedPreferences中是否有账号信息，在打开需要用户登录的界面之前调用本方法。
+     * @return 是否有账号信息
+     */
     private boolean hasAccountInfo(){
         if(sp == null){
             sp  = getSharedPreferences("config",MODE_PRIVATE);
         }
         return !sp.getString("account","").isEmpty();
     }
+
+    /**
+     * 退出登录，删除sharedPreferences中的信息，将header中的userName修改为匿名
+     */
     public void logout(){
         getSharedPreferences("config",MODE_PRIVATE).edit().clear().apply();
         userName.setText("匿名用户");

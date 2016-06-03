@@ -10,7 +10,7 @@ public class BaseActivity extends AppCompatActivity {
     Toast toast;
 
     /**
-     * 显示一个toast，默认市场为短
+     * 显示一个toast，默认时长为短
      * @param message 内容
      */
     public void showToast(String message){

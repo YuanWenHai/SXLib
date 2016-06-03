@@ -132,6 +132,12 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.MyBookView
         account = sp.getString("account","");
         password = sp.getString("password","");
     }
+
+    /**
+     * 设置获取借阅信息以及续借键点击事件的callback
+     * @param renewCallback 点击续借callback
+     * @param loadCallback 加载借阅信息callback
+     */
     public void setCallbacks(RenewCallback renewCallback,LoadCallback loadCallback){
         this.renewCallback = renewCallback;
         this.loadCallback = loadCallback;
