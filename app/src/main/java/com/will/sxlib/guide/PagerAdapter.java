@@ -27,8 +27,7 @@ public class PagerAdapter extends android.support.v13.app.FragmentPagerAdapter {
                 return new InternalNavigationFragment();
             case 2:
                 return  new LibNavigationFragment();
-            /*case 3:
-                return  new ResourceIntroFragment();*/
+
             case 3:
                 return new CardNoticeFragment();
 

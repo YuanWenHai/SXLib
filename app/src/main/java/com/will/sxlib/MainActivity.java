@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.will.sxlib.base.BaseActivity;
@@ -44,6 +45,7 @@ public class MainActivity extends BaseActivity{
     private FragmentManager fragmentManager = getFragmentManager();
     private AlertDialog loginDialog;
     private AlertDialog changePasswordDialog;
+    public View statusBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +66,10 @@ public class MainActivity extends BaseActivity{
     private void initializeView(){
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
-        arrow = (ImageButton) navigationView.getHeaderView(0).findViewById(R.id.drawer_header_arrow);
-        userName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.drawer_header_user_name);
+        statusBar = findViewById(R.id.status_bar);
+        RelativeLayout header = (RelativeLayout) navigationView.getHeaderView(0);
+        arrow = (ImageButton) header.findViewById(R.id.drawer_header_arrow);
+        userName = (TextView) header.findViewById(R.id.drawer_header_user_name);
         userName.setText(sp.getString("userName","匿名读者"));
     }
     private void showLoginDialog(){
@@ -213,8 +217,8 @@ public class MainActivity extends BaseActivity{
                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
                    }
                }hideOtherFragments(which);
-
                drawerLayout.closeDrawer(GravityCompat.START);
+               statusBar.setBackgroundResource(R.drawable.status_bar_bg);
                break;
            case GUIDE :
                fragment = fragmentManager.findFragmentByTag("guide");
@@ -228,6 +232,7 @@ public class MainActivity extends BaseActivity{
                    }
                }
                hideOtherFragments(which);
+               statusBar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                drawerLayout.closeDrawer(GravityCompat.START);
                break;
            case MY_BOOK:
@@ -242,6 +247,7 @@ public class MainActivity extends BaseActivity{
                    }
                }
                hideOtherFragments(which);
+               statusBar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                drawerLayout.closeDrawer(GravityCompat.START);
                break;
        }
@@ -301,6 +307,7 @@ public class MainActivity extends BaseActivity{
             final EditText oldEdit = (EditText) view.findViewById(R.id.change_password_dialog_old_password);
             final EditText newEdit_1 = (EditText) view.findViewById(R.id.change_password_dialog_new_password_1);
             final EditText newEdit_2 = (EditText) view.findViewById(R.id.change_password_dialog_new_password_2);
+            final SmoothProgressBar progressBar = (SmoothProgressBar) view.findViewById(R.id.change_password_dialog_progress_bar);
             Button cancel = (Button) view.findViewById(R.id.change_password_dialog_cancel);
             Button confirm = (Button) view.findViewById(R.id.change_password_dialog_confirm);
             cancel.setOnClickListener(new View.OnClickListener() {
@@ -320,6 +327,7 @@ public class MainActivity extends BaseActivity{
                     }else if(!newStr_1.equals(newStr_2)){
                         showToast("两次新密码输入不同!");
                     }else{
+                        progressBar.setVisibility(View.VISIBLE);
                         UserOperationHelper helper = UserOperationHelper
                                 .getInstance(MainActivity.this,sp.getString("account",""),sp.getString("password",""));
                         helper.changePassword(oldStr, newStr_1, new UserOperationHelper.ChangePasswordCallback() {
@@ -330,6 +338,7 @@ public class MainActivity extends BaseActivity{
                                 newEdit_2.setText("");
                                 changePasswordDialog.cancel();
                                 showToast("修改成功");
+                                progressBar.setVisibility(View.GONE);
                             }
 
                             @Override
@@ -342,6 +351,7 @@ public class MainActivity extends BaseActivity{
                                    showToast("密码已被修改，请重新登录");
                                    logout();
                                }
+                                progressBar.setVisibility(View.GONE);
                             }
                         });
                     }

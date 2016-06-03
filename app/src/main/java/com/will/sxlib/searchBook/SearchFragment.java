@@ -39,6 +39,16 @@ public class SearchFragment extends BaseFragment {
         });
         searchView.setSuggestionRightIconColor(Color.TRANSPARENT);
 
+        searchView.setOnFocusChangeListener(new FloatingSearchView.OnFocusChangeListener() {
+            @Override
+            public void onFocus() {
+                ((MainActivity)getActivity()).statusBar.setBackgroundColor(Color.parseColor("#aa000000"));
+            }
+            @Override
+            public void onFocusCleared() {
+                ((MainActivity)getActivity()).statusBar.setBackgroundResource(R.drawable.status_bar_bg);
+            }
+        });
         searchView.setOnBindSuggestionCallback(new SearchSuggestionsAdapter.OnBindSuggestionCallback() {
             @Override
             public void onBindSuggestion(IconImageView leftIcon, BodyTextView bodyText, SearchSuggestion item, int itemPosition) {
