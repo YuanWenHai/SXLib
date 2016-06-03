@@ -37,20 +37,22 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.MyBookView
         helper = UserOperationHelper.getInstance(context,account,password);
         loadData();
     }
-    private void loadData(){
+
+    public void loadData(){
         helper.getLoanData(new UserOperationHelper.RenewCallback() {
             @Override
             public void onResponse(List<MyBook> list) {
+                data.clear();
                 data.addAll(list);
                 notifyItemRangeChanged(0,list.size());
                 if(loadCallback != null){
-                    loadCallback.onSuccess();
+                    loadCallback.onSuccess(data.size());
                 }
             }
             @Override
             public void onFailure(ErrorCode code) {
                 if(loadCallback != null){
-                    loadCallback.onFailure();
+                    loadCallback.onFailure(code);
                 }else {
                     Toast.makeText(context,"网络连接失败",Toast.LENGTH_SHORT).show();
                 }
@@ -107,6 +109,7 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.MyBookView
                                 helper.renewBook(data.get(getAdapterPosition()).getBarCode().replace("条码号: ",""), new UserOperationHelper.DoRenewCallback() {
                                     @Override
                                     public void onSuccess() {
+                                        loadData();
                                         renewCallback.onSuccess();
                                     }
                                     @Override
@@ -138,7 +141,7 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.MyBookView
         void onFailure(ErrorCode code);
     }
     public interface LoadCallback{
-        void onSuccess();
-        void onFailure();
+        void onSuccess(int count);
+        void onFailure(ErrorCode code);
     }
 }

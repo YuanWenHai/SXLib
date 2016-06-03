@@ -34,4 +34,5 @@ dependencies {
     compile 'com.github.arimorty:floatingsearchview:1.1.2'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.hannesdorfmann.smoothprogressbar:library:1.0.0'
+    compile'com.android.support:support-v13:23.4.0'
 }

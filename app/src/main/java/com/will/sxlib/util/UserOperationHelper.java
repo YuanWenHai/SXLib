@@ -1,6 +1,7 @@
 package com.will.sxlib.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.util.Log;
 
@@ -35,32 +36,39 @@ public class UserOperationHelper {
     private static final String RENEW_URL = "http://opac.lib.sx.cn/opac/loan/renewList";//续借页面，获取借阅数据
     private static final String LOGIN_URL = "http://opac.lib.sx.cn/opac/reader/doLogin";//登陆
     private static final String DO_RENEW_URL = "http://opac.lib.sx.cn/opac/loan/doRenew";//进行续借操作
+    private static final String CHANGE_PASSWORD = "http://opac.lib.sx.cn/opac/reader/updatePassword";//修改密码
     private List<String> headers;//缓存HeaderName，避免重复操作
     private OkHttpClient userClient;
     private Handler handler;
     private String account;
     private String password;
     private String userName = "匿名用户";
+    private Context context;
     private static UserOperationHelper instance;
     public static UserOperationHelper getInstance(Context context,String account,String password){
         if(instance == null){
             instance = new UserOperationHelper(context,account,password);
+        }else{
+            instance.password = password;
+            instance.account = account;
         }
         return instance;
     }
     private UserOperationHelper(Context context,String account,String password){
+        this.context = context;
         userClient = new OkHttpClient();
         CookieManager manager = new CookieManager();
         manager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
         userClient.setCookieHandler(manager);
         handler = new Handler(context.getMainLooper());
         this.account = account;
-        this.password = md5(password);
+        this.password = password;
     }
     public void login(final LoginCallback loginCallback){
+        Log.e(account,password);
         RequestBody body = new MultipartBuilder().type(MultipartBuilder.FORM)
                 .addFormDataPart("rdid",account)
-                .addFormDataPart("rdPasswd",password).build();
+                .addFormDataPart("rdPasswd",md5(password)).build();
         Request request = new Request.Builder().url(LOGIN_URL).
                 post(body).
                 build();
@@ -77,6 +85,7 @@ public class UserOperationHelper {
             }
             @Override
             public void onResponse( Response response) throws IOException {
+                //如密码错误，则网页会返回重定向连接
                if(!response.toString().contains("http://opac.lib.sx.cn/opac/reader/doLogin")){
                    getUserNameFromHtml(response.body().string());
                    handler.post(new Runnable() {
@@ -133,12 +142,7 @@ public class UserOperationHelper {
                         }
                         @Override
                         public void onFailure(final ErrorCode code) {
-                         handler.post(new Runnable() {
-                             @Override
-                             public void run() {
                                  callback.onFailure(code);
-                             }
-                         });
                         }
                     });
                 }
@@ -169,7 +173,8 @@ public class UserOperationHelper {
             @Override
             public void onResponse(Response response) throws IOException {
                 //如果返回以下重定向连接，说明当前状态为未登录，调用登陆方法
-                if(response.toString().contains("http://opac.lib.sx.cn/opac/reader/login?returnUrl=/loan/doRenew")){
+                final String str = response.body().string();
+                if(!isLogined(str)/*response.toString().contains("http://opac.lib.sx.cn/opac/reader/login?returnUrl=/loan/doRenew")*/){
                     login(new LoginCallback() {
                         @Override
                         public void onSuccess() {
@@ -187,7 +192,6 @@ public class UserOperationHelper {
                         }
                     });
                 }else{
-                    final String str = response.body().string();
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -202,6 +206,67 @@ public class UserOperationHelper {
 
             }
         });
+    }
+
+    /**
+     * 修改密码,这个方法很简单，简单的根据cookie判定登陆状况，如果当前是登陆状态，直接带上新密码去update，
+     * 在提交之前，用本地储存的密码与输入的旧密码做对比，如果一致则提交，反之拒绝请求。
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     * @param callback callback
+     */
+    public void changePassword(final String oldPassword, final String newPassword, final ChangePasswordCallback callback){
+        if(!oldPassword.equals(password)){
+            callback.onFailure(ErrorCode.OLD_PASSWORD_INVALID);
+        }else{
+            RequestBody body = new MultipartBuilder().type(MultipartBuilder.FORM)
+                    .addFormDataPart("rdid",account)
+                    .addFormDataPart("password",newPassword).build();
+            Request request = new Request.Builder().url(CHANGE_PASSWORD).post(body).build();
+            userClient.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callback.onFailure(ErrorCode.CONNECTION_FAILED);
+                        }
+                    });
+                }
+
+                @Override
+                public void onResponse(Response response) throws IOException {
+                    if(response.toString().contains("http://opac.lib.sx.cn/opac/reader/login?returnUrl=/reader/updatePassword")){
+                        login(new LoginCallback() {
+                            @Override
+                            public void onSuccess() {
+                                changePassword(oldPassword,newPassword,callback);
+                            }
+                            @Override
+                            public void onFailure(final ErrorCode code) {
+                               handler.post(new Runnable() {
+                                   @Override
+                                   public void run() {
+                                       callback.onFailure(code);
+                                   }
+                               });
+                            }
+                        });
+                    }else{
+                        if(response.body().string().contains("更新密码成功")){
+                            password = newPassword;
+                            context.getSharedPreferences("config",Context.MODE_PRIVATE).edit().putString("password",password).apply();
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    callback.onSuccess();
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        }
     }
     public String getUserName(){
         return userName;
@@ -253,7 +318,7 @@ public class UserOperationHelper {
      */
     private boolean isLogined(String html){
         Document document = Jsoup.parse(html);
-        return !document.select("table#contentTable").isEmpty();
+        return document.select("div.navbar_info_zh").text().contains("欢迎");
     }
 
     /**
@@ -266,6 +331,10 @@ public class UserOperationHelper {
         String content = document.select("div#content").text();
         return !content.contains("对不起");
     }
+    public void logout(){
+        SharedPreferences.Editor editor = context.getSharedPreferences("config",Context.MODE_PRIVATE).edit();
+        editor.clear().apply();
+    }
 
     /**
      * 从html中提取用户名
@@ -274,6 +343,10 @@ public class UserOperationHelper {
     private void getUserNameFromHtml(String html){
         Document document = Jsoup.parse(html);
         userName = document.select("div.navbar_info_zh").text().replace("欢迎您：","").replace(" ","").replace("退出","");
+    }
+    public void setUserInfo(String account,String password){
+        this.account = account;
+        this.password = password;
     }
     public interface RenewCallback{
         /**
@@ -303,7 +376,10 @@ public class UserOperationHelper {
          */
         void onFailure(ErrorCode code);
     }
-
+    public interface ChangePasswordCallback{
+        void onSuccess();
+        void onFailure(ErrorCode code);
+    }
 
 
 

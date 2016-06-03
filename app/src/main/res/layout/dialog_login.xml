@@ -35,7 +35,7 @@
            android:layout_below="@+id/login_dialog_account_layout"
            android:layout_height="wrap_content"
            android:layout_marginTop="10dp"
-           android:layout_marginStart="15dp">
+           android:layout_marginStart="5dp">
            <EditText
                android:id="@+id/login_dialog_password"
                android:layout_width="match_parent"

@@ -256,7 +256,31 @@ public class NetworkHelper {
             }
         });
     }
+    public void getResourceIntro(final LoadIntroCallback callback){
+        Request request = new Request.Builder().url("http://lib.sx.cn/html/1/dzzn/32.html").build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
 
+            }
+            @Override
+            public void onResponse(Response response) throws IOException {
+                Document doc = Jsoup.parse(response.body().string());
+                final String article = doc.select(".article").html();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onSuccess(article);
+                    }
+                });
+            }
+        });
+    }
+
+    public interface LoadIntroCallback{
+        void onSuccess(String html);
+        void onFailure();
+    }
     public interface LoadDetailCallback {
         /**
          *

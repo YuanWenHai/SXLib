@@ -5,12 +5,22 @@
             android:id="@+id/navigation_item_search"
             android:title="@string/search_book"
             android:icon="@drawable/ic_search_black_24dp"/>
-    </group>
-    <group android:id="@+id/navigation_group_user" android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation_item_guide"
+            android:title="@string/reader_guide"
+            android:icon="@drawable/ic_device_hub_black_24dp"
+            />
         <item
             android:id="@+id/navigation_item_my_book"
             android:title="@string/renew_book"
             android:icon="@drawable/ic_filter_none_black_24dp"/>
+    </group>
+    <group android:id="@+id/navigation_group_user" android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/navigation_item_change_password"
+            android:title="@string/change_password"
+            android:icon="@drawable/ic_shuffle_black_24dp"/>
         <item android:id="@+id/navigation_item_login"
             android:title="@string/login_logout"
             android:icon="@drawable/ic_directions_walk_black_24dp"/>

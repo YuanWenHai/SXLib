@@ -15,5 +15,9 @@ public enum ErrorCode {
     /**
      * 续借失败，已达续借最大次数限制
      */
-    RENEW_FAILED;
+    RENEW_FAILED,
+    /**
+     * 旧密码输入错误
+     */
+    OLD_PASSWORD_INVALID;
 }
