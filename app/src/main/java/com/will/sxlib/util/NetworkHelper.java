@@ -7,6 +7,7 @@ import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import com.will.sxlib.base.MyApplication;
 import com.will.sxlib.bean.Book;
 import com.will.sxlib.bean.BookState;
 
@@ -16,7 +17,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,18 +67,15 @@ public class NetworkHelper {
     private  OkHttpClient client;
     private Handler handler;
     private Context context;
-    private int pageCount = 1;//页数
-    //临时list，用于缓存book，因为进行了过滤，每次请求返回的bookList数肯定低于十条。在此缓存够十条后一次性交给调用者
-    private List<Book> temp = new ArrayList<>();
     private static NetworkHelper instance;
-    private NetworkHelper(Context context){
+    private NetworkHelper(){
         client = new OkHttpClient();
+        context = MyApplication.getGlobalContext();
         handler = new Handler(context.getMainLooper());
-        this.context = context;
     }
-    public static NetworkHelper getInstance(Context context){
+    public static NetworkHelper getInstance(){
         if(instance == null){
-            instance =  new NetworkHelper(context);
+            instance =  new NetworkHelper();
         }
             return instance;
         }

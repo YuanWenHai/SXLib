@@ -11,6 +11,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
+import com.will.sxlib.base.MyApplication;
 import com.will.sxlib.bean.MyBook;
 
 import org.jsoup.Jsoup;
@@ -45,17 +46,17 @@ public class UserOperationHelper {
     private String userName = "匿名用户";
     private Context context;
     private static UserOperationHelper instance;
-    public static UserOperationHelper getInstance(Context context,String account,String password){
+    public static UserOperationHelper getInstance(String account,String password){
         if(instance == null){
-            instance = new UserOperationHelper(context,account,password);
+            instance = new UserOperationHelper(account,password);
         }else{
             instance.password = password;
             instance.account = account;
         }
         return instance;
     }
-    private UserOperationHelper(Context context,String account,String password){
-        this.context = context;
+    private UserOperationHelper(String account,String password){
+        this.context = MyApplication.getGlobalContext();
         userClient = new OkHttpClient();
         CookieManager manager = new CookieManager();
         manager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);

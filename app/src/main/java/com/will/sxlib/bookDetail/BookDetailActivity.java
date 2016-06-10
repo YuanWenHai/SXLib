@@ -39,7 +39,7 @@ public class BookDetailActivity extends BaseActivity {
         setContentView(R.layout.avtivity_book_detail);
         book = (Book) getIntent().getSerializableExtra("book");
         initializeView();
-        NetworkHelper helper = NetworkHelper.getInstance(this);
+        NetworkHelper helper = NetworkHelper.getInstance();
         helper.loadBookDetail(book.getBookNumber(), new NetworkHelper.LoadDetailCallback() {
             @Override
             public void onResponse(String titleStr, Map<String, String> map) {

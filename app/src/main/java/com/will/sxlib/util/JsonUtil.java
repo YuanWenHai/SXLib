@@ -190,7 +190,6 @@ public class JsonUtil {
         }
         return list;
     }
-
     /**
      * 将图书馆、馆藏、状态信息写入map
      * @param list list

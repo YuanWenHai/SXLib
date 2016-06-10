@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.will.sxlib.base.BaseActivity;
 import com.will.sxlib.guide.GuideFragment;
@@ -103,7 +104,7 @@ public class MainActivity extends BaseActivity{
                     final String passwordStr = passwordEdit.getText().toString();
                     if(!accountStr.isEmpty() && !passwordStr.isEmpty()){
                         progressBar.setVisibility(View.VISIBLE);
-                        final UserOperationHelper helper = UserOperationHelper.getInstance(MainActivity.this,accountStr,passwordStr);
+                        final UserOperationHelper helper = UserOperationHelper.getInstance(accountStr,passwordStr);
                         helper.setUserInfo(accountStr,passwordStr);
                         helper.login(new UserOperationHelper.LoginCallback() {
                             @Override
@@ -378,7 +379,7 @@ public class MainActivity extends BaseActivity{
                     }else{
                         progressBar.setVisibility(View.VISIBLE);
                         UserOperationHelper helper = UserOperationHelper
-                                .getInstance(MainActivity.this,sp.getString("account",""),sp.getString("password",""));
+                                .getInstance(sp.getString("account",""),sp.getString("password",""));
                         helper.changePassword(oldStr, newStr_1, new UserOperationHelper.ChangePasswordCallback() {
                             @Override
                             public void onSuccess() {
@@ -427,5 +428,24 @@ public class MainActivity extends BaseActivity{
     public void logout(){
         getSharedPreferences("config",MODE_PRIVATE).edit().clear().apply();
         userName.setText("匿名用户");
+    }
+
+    private Toast exitToast;
+    /**
+     * back键点击事件，首次back显示一个toast，再按一次则退出。
+     */
+    private void showExitToast(){
+        if(exitToast == null){
+            exitToast = Toast.makeText(this,"再按一次退出",Toast.LENGTH_SHORT);
+        }
+            if(exitToast.getView().getParent() == null){
+                exitToast.show();
+            }else{
+                super.onBackPressed();
+            }
+    }
+    @Override
+    public void onBackPressed(){
+        showExitToast();
     }
 }

@@ -41,7 +41,7 @@ public class BookListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public BookListAdapter (Context context){
         this.context = context;
         data = new ArrayList<>();
-        helper = NetworkHelper.getInstance(context);
+        helper = NetworkHelper.getInstance();
     }
 
     /**

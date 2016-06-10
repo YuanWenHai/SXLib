@@ -26,7 +26,7 @@ public class BookDetailAdapter extends RecyclerView.Adapter<BookDetailAdapter.Bo
     private LoadCallback callback;
     public BookDetailAdapter(Context context,String bookNumber){
         data = new ArrayList<>();
-        helper = NetworkHelper.getInstance(context);
+        helper = NetworkHelper.getInstance();
         this.context = context;
         loadState(bookNumber);
     }

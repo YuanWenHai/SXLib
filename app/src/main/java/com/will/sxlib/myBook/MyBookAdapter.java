@@ -34,7 +34,7 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.MyBookView
     public MyBookAdapter(Context context){
         this.context = context;
         getAccountInfo();
-        helper = UserOperationHelper.getInstance(context,account,password);
+        helper = UserOperationHelper.getInstance(account,password);
         loadData();
     }
 
