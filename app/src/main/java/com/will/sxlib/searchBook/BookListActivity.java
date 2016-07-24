@@ -29,7 +29,7 @@ public class BookListActivity extends BaseActivity implements BookListAdapter.Lo
         super.onCreate(SavedInstanceState);
         setContentView(R.layout.avtivity_book_list);
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.book_list_recycler_view);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.book_list_tool_bar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.book_list_tool_bar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.book_list_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +45,7 @@ public class BookListActivity extends BaseActivity implements BookListAdapter.Lo
                 keyword = query;
                 adapter.search(query, NetworkHelper.SORT_BY_MATCHING,NetworkHelper.SEARCH_BY_DEFAULT,BookListActivity.this);
                 searchView.closeSearch();
+                toolbar.setTitle("搜索中···");
                 return true;
             }
 

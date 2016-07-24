@@ -212,4 +212,7 @@ public class BookListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         isEnd = true;
         notifyDataSetChanged();
     }
+    public List<Book> getData(){
+        return data;
+    }
 }

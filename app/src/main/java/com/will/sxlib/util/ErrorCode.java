@@ -19,5 +19,5 @@ public enum ErrorCode {
     /**
      * 旧密码输入错误
      */
-    OLD_PASSWORD_INVALID;
+    OLD_PASSWORD_INVALID
 }
