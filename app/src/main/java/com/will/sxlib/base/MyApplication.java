@@ -16,4 +16,5 @@ public class MyApplication extends Application {
     public static Context getGlobalContext(){
         return mContext;
     }
+
 }

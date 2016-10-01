@@ -5,14 +5,12 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.transition.Fade;
-import android.transition.Slide;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -37,6 +35,8 @@ public class MainActivity extends BaseActivity{
     public static final int SEARCH = 0;
     public static final int GUIDE = 1;
     public static final int MY_BOOK = 2;
+    public static final int CHANGE_PASSWORD = 3;
+    public static final int LOGIN = 4;
     private DrawerLayout drawerLayout;
     private ImageButton arrow;
     private NavigationView navigationView;
@@ -47,6 +47,8 @@ public class MainActivity extends BaseActivity{
     private AlertDialog loginDialog;
     private AlertDialog changePasswordDialog;
     public View statusBar;
+
+    private int selectedItem = SEARCH;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +82,27 @@ public class MainActivity extends BaseActivity{
         arrow = (ImageButton) header.findViewById(R.id.drawer_header_arrow);
         userName = (TextView) header.findViewById(R.id.drawer_header_user_name);
         userName.setText(sp.getString("userName","匿名读者"));
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                switchNavigationItems(selectedItem);
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
     }
 
     /**
@@ -150,19 +173,11 @@ public class MainActivity extends BaseActivity{
             public void onClick(View v) {
                 if(v.isSelected()){
                     v.setSelected(false);
-                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                        TransitionManager.beginDelayedTransition(navigationView,new Slide().setDuration(100));
-                    }else{
-                        TransitionManager.beginDelayedTransition(navigationView,new Fade().setDuration(100));
-                    }
+                    TransitionManager.beginDelayedTransition(navigationView,new Fade().setDuration(200));
                     navigationView.getMenu().setGroupVisible(R.id.navigation_group_user,true);
                 }else{
                     v.setSelected(true);
-                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                        TransitionManager.beginDelayedTransition(navigationView,new Slide().setDuration(100));
-                    }else{
-                        TransitionManager.beginDelayedTransition(navigationView,new Fade().setDuration(100));
-                    }
+                    TransitionManager.beginDelayedTransition(navigationView,new Fade().setDuration(200));
                     navigationView.getMenu().setGroupVisible(R.id.navigation_group_user,false);
                 }
             }
@@ -178,33 +193,26 @@ public class MainActivity extends BaseActivity{
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.navigation_item_login:
-                        if(!hasAccountInfo()){
-                            showLoginDialog();
-                        }else{
-                           showLogoutDialog();
-                        }
+                        selectedItem = LOGIN;
                         break;
                     case R.id.navigation_item_my_book:
                         if(!hasAccountInfo()){
                             showToast("未登录！");
                         }else{
-                           switchNavigationItems(MY_BOOK);
+                            selectedItem = MY_BOOK;
                         }
                         break;
                     case R.id.navigation_item_search:
-                            switchNavigationItems(SEARCH);
+                            selectedItem = SEARCH;
                         break;
                     case R.id.navigation_item_guide:
-                            switchNavigationItems(GUIDE);
+                            selectedItem = GUIDE;
                         break;
                     case R.id.navigation_item_change_password:
-                        if(hasAccountInfo()){
-                            showChangePasswordDialog();
-                        }else{
-                            showToast("未登录!");
-                        }
+                            selectedItem = CHANGE_PASSWORD;
                         break;
                 }
+                drawerLayout.closeDrawers();
                 return true;
             }
         });
@@ -251,7 +259,6 @@ public class MainActivity extends BaseActivity{
                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
                    }
                }hideOtherFragments(which);
-               drawerLayout.closeDrawer(GravityCompat.START);
                statusBar.setBackgroundResource(R.drawable.status_bar_bg);
                break;
            case GUIDE :
@@ -267,7 +274,6 @@ public class MainActivity extends BaseActivity{
                }
                hideOtherFragments(which);
                statusBar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-               drawerLayout.closeDrawer(GravityCompat.START);
                break;
            case MY_BOOK:
                fragment = fragmentManager.findFragmentByTag("myBook");
@@ -282,7 +288,20 @@ public class MainActivity extends BaseActivity{
                }
                hideOtherFragments(which);
                statusBar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-               drawerLayout.closeDrawer(GravityCompat.START);
+               break;
+           case CHANGE_PASSWORD:
+               if(hasAccountInfo()){
+                   showChangePasswordDialog();
+               }else{
+                   showToast("未登录!");
+               }
+               break;
+           case LOGIN:
+               if(!hasAccountInfo()){
+                   showLoginDialog();
+               }else{
+                   showLogoutDialog();
+               }
                break;
        }
     }

@@ -26,6 +26,7 @@ public class MyBookFragment extends BaseFragment implements SwipeRefreshLayout.O
         View view  = inflater.inflate(R.layout.fragment_my_book,null);
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.my_book_refresh_layout);
         refreshLayout.setOnRefreshListener(this);
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.my_book_recycler_view);
         final Toolbar toolbar = (Toolbar) view.findViewById(R.id.my_book_toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
