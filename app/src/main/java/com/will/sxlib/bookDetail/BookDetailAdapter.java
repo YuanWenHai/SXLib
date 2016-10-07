@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.will.sxlib.R;
 import com.will.sxlib.bean.BookState;
+import com.will.sxlib.bean.FavoriteItem;
 import com.will.sxlib.util.ErrorCode;
 import com.will.sxlib.util.NetworkHelper;
 
@@ -90,6 +91,22 @@ public class BookDetailAdapter extends RecyclerView.Adapter<BookDetailAdapter.Bo
             lib = (TextView) v.findViewById(R.id.book_detail_table_lib);
             position = (TextView) v.findViewById(R.id.book_detail_table_position);
         }
+    }
+    public List<BookState> getBookStateData(){
+        return data;
+    }
+
+    /**
+     * 获取此书馆藏状态，只要有一条项目存在，即为存在，反之为不存在
+     * @return state
+     */
+    public int getBookState(){
+        for(BookState state :getBookStateData()){
+            if(state.getState().equals("在馆")){
+                return FavoriteItem.EXSIT;
+            }
+        }
+        return FavoriteItem.NON_EXSIT;
     }
     interface LoadCallback{
         void onSuccess();

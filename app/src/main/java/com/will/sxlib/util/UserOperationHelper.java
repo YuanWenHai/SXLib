@@ -48,7 +48,12 @@ public class UserOperationHelper {
     private static UserOperationHelper instance;
     public static UserOperationHelper getInstance(String account,String password){
         if(instance == null){
-            instance = new UserOperationHelper(account,password);
+            synchronized (UserOperationHelper.class){
+                if(instance == null){
+                    instance = new UserOperationHelper(account,password);
+                }
+            }
+
         }else{
             instance.password = password;
             instance.account = account;

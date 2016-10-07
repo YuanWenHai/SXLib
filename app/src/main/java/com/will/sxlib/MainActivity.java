@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -27,6 +26,7 @@ import com.will.sxlib.guide.GuideFragment;
 import com.will.sxlib.myBook.MyBookFragment;
 import com.will.sxlib.searchBook.SearchFragment;
 import com.will.sxlib.util.ErrorCode;
+import com.will.sxlib.util.SPHelper;
 import com.will.sxlib.util.UserOperationHelper;
 
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
@@ -35,14 +35,11 @@ public class MainActivity extends BaseActivity{
     public static final int SEARCH = 0;
     public static final int GUIDE = 1;
     public static final int MY_BOOK = 2;
-    public static final int CHANGE_PASSWORD = 3;
-    public static final int LOGIN = 4;
+    public static final int MY_FAVORITE = 3;
     private DrawerLayout drawerLayout;
     private ImageButton arrow;
     private NavigationView navigationView;
     private TextView userName;
-    private SharedPreferences sp;
-    private SharedPreferences.Editor editor;
     private FragmentManager fragmentManager = getFragmentManager();
     private AlertDialog loginDialog;
     private AlertDialog changePasswordDialog;
@@ -53,11 +50,11 @@ public class MainActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initializeSP();
         initializeView();
         setupArrowIndex();
         setupNavigationViewClickEvent();
         switchNavigationItems(SEARCH);
+        ///new NotificationChecker(this).check();
     }
 
     /**
@@ -81,7 +78,7 @@ public class MainActivity extends BaseActivity{
         RelativeLayout header = (RelativeLayout) navigationView.getHeaderView(0);
         arrow = (ImageButton) header.findViewById(R.id.drawer_header_arrow);
         userName = (TextView) header.findViewById(R.id.drawer_header_user_name);
-        userName.setText(sp.getString("userName","匿名读者"));
+        userName.setText(SPHelper.getUserName());
         drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -192,27 +189,43 @@ public class MainActivity extends BaseActivity{
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.navigation_item_login:
-                        selectedItem = LOGIN;
-                        break;
                     case R.id.navigation_item_my_book:
                         if(!hasAccountInfo()){
                             showToast("未登录！");
                         }else{
                             selectedItem = MY_BOOK;
+                            drawerLayout.closeDrawers();
                         }
                         break;
                     case R.id.navigation_item_search:
                             selectedItem = SEARCH;
+                            drawerLayout.closeDrawers();
                         break;
                     case R.id.navigation_item_guide:
                             selectedItem = GUIDE;
+                            drawerLayout.closeDrawers();
                         break;
+                    case R.id.navigation_item_my_favorite:
+                            selectedItem = MY_FAVORITE;
+                            drawerLayout.closeDrawers();
+                        break;
+
                     case R.id.navigation_item_change_password:
-                            selectedItem = CHANGE_PASSWORD;
+                        if(hasAccountInfo()){
+                            showChangePasswordDialog();
+                        }else{
+                            showToast("未登录!");
+                        }
+                        break;
+
+                    case R.id.navigation_item_login:
+                        if(!hasAccountInfo()){
+                            showLoginDialog();
+                        }else{
+                            showLogoutDialog();
+                        }
                         break;
                 }
-                drawerLayout.closeDrawers();
                 return true;
             }
         });
@@ -228,7 +241,7 @@ public class MainActivity extends BaseActivity{
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                sp.edit().clear().apply();
+               SPHelper.clearConfig();
                 userName.setText("匿名读者");
                 showToast("已退出");
                 switchNavigationItems(SEARCH);
@@ -259,6 +272,7 @@ public class MainActivity extends BaseActivity{
                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
                    }
                }hideOtherFragments(which);
+               //drawerLayout.closeDrawer(GravityCompat.START);
                statusBar.setBackgroundResource(R.drawable.status_bar_bg);
                break;
            case GUIDE :
@@ -288,20 +302,6 @@ public class MainActivity extends BaseActivity{
                }
                hideOtherFragments(which);
                statusBar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-               break;
-           case CHANGE_PASSWORD:
-               if(hasAccountInfo()){
-                   showChangePasswordDialog();
-               }else{
-                   showToast("未登录!");
-               }
-               break;
-           case LOGIN:
-               if(!hasAccountInfo()){
-                   showLoginDialog();
-               }else{
-                   showLogoutDialog();
-               }
                break;
        }
     }
@@ -346,28 +346,17 @@ public class MainActivity extends BaseActivity{
      * @param userName 用户名
      */
     private void writeUserInfo2SP(String account,String password,String userName){
-        editor.putString("account",account);
-        editor.putString("password",password);
-        editor.putString("userName",userName);
-        editor.apply();
+        SPHelper.setAccount(account);
+        SPHelper.setPassword(password);
+        SPHelper.setUserName(userName);
     }
 
-    /**
-     * 初始化sharedPreferences相关
-     */
-    private void initializeSP(){
-        if(sp == null){
-            sp = getSharedPreferences("config",MODE_PRIVATE);
-            editor = sp.edit();
-        }
-    }
 
     /**
      * 展示修改密码dialog
      */
     private void showChangePasswordDialog(){
         if(changePasswordDialog == null){
-            final SharedPreferences sp = getSharedPreferences("config",MODE_PRIVATE);
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             View view = LayoutInflater.from(this).inflate(R.layout.dialog_change_password,null);
             builder.setView(view);
@@ -398,7 +387,7 @@ public class MainActivity extends BaseActivity{
                     }else{
                         progressBar.setVisibility(View.VISIBLE);
                         UserOperationHelper helper = UserOperationHelper
-                                .getInstance(sp.getString("account",""),sp.getString("password",""));
+                                .getInstance(SPHelper.getAccount(),SPHelper.getPassword());
                         helper.changePassword(oldStr, newStr_1, new UserOperationHelper.ChangePasswordCallback() {
                             @Override
                             public void onSuccess() {
@@ -435,19 +424,18 @@ public class MainActivity extends BaseActivity{
      * @return 是否有账号信息
      */
     private boolean hasAccountInfo(){
-        if(sp == null){
-            sp  = getSharedPreferences("config",MODE_PRIVATE);
-        }
-        return !sp.getString("account","").isEmpty();
+        return !SPHelper.getAccount().isEmpty();
     }
 
     /**
      * 退出登录，删除sharedPreferences中的信息，将header中的userName修改为匿名
      */
     public void logout(){
-        getSharedPreferences("config",MODE_PRIVATE).edit().clear().apply();
+        SPHelper.clearConfig();
         userName.setText("匿名用户");
     }
+
+
 
     private Toast exitToast;
     /**

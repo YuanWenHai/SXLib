@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.TransitionManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +20,7 @@ import com.squareup.picasso.Picasso;
 import com.will.sxlib.R;
 import com.will.sxlib.base.BaseActivity;
 import com.will.sxlib.bean.Book;
+import com.will.sxlib.util.DBManager;
 import com.will.sxlib.util.ErrorCode;
 import com.will.sxlib.util.NetworkHelper;
 
@@ -32,6 +35,10 @@ public class BookDetailActivity extends BaseActivity {
     private LinearLayout bookInfo;
     private RelativeLayout gcxxTable;
     private RecyclerView recyclerView;
+    private  BookDetailAdapter adapter;
+    private boolean favorited;
+    private boolean favoriteStateHasChanged;
+    private boolean loadingCompleted;
     private TextView title,language,edition,page,theme,summary;
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -56,11 +63,12 @@ public class BookDetailActivity extends BaseActivity {
                 }
                 bookInfo.setVisibility(View.VISIBLE);
                 //
-                BookDetailAdapter adapter = new BookDetailAdapter(BookDetailActivity.this,book.getBookNumber());
+                adapter = new BookDetailAdapter(BookDetailActivity.this,book.getBookNumber());
                 adapter.setLoadCallback(new BookDetailAdapter.LoadCallback() {
                     @Override
                     public void onSuccess() {
                         getSupportActionBar().setTitle("详情");
+                        loadingCompleted = true;
                     }
 
                     @Override
@@ -122,5 +130,34 @@ public class BookDetailActivity extends BaseActivity {
         } else {
             Picasso.with(this).load(book.getCoverUrl()).placeholder(R.drawable.loading_image).error(R.drawable.no_image_available).into(cover);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.book_detail_menu,menu);
+        if(DBManager.getInstance().queryByTitle(book.getTitle()) != null){
+            favorited = true;
+            menu.getItem(0).setIcon(R.drawable.ic_favorite_white_24dp);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.book_detail_favorite){
+            favoriteStateHasChanged = !favoriteStateHasChanged;
+            if(favorited){
+                item.setIcon(R.drawable.ic_favorite_border_white_24dp);
+                DBManager.getInstance().deleteItemByTitle(book.getTitle());
+            }else{
+                if(loadingCompleted){
+                    item.setIcon(R.drawable.ic_favorite_white_24dp);
+                    DBManager.getInstance().add(book.getTitle(),adapter.getBookState());
+                }else{
+                    showToast("数据未加载完毕,请稍后重试");
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

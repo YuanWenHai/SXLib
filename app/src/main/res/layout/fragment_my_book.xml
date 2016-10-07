@@ -9,8 +9,19 @@
         android:layout_width="match_parent"
         app:theme="@style/ThemeOverlay.AppCompat.Dark"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"/>
-   <android.support.v4.widget.SwipeRefreshLayout
+        android:background="@color/colorPrimary">
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/return_notification"
+            android:id="@+id/my_book_switcher"
+            android:layout_gravity="end"
+            android:textColor="@color/white"/>
+    </android.support.v7.widget.Toolbar>
+
+
+
+    <android.support.v4.widget.SwipeRefreshLayout
        android:id="@+id/my_book_refresh_layout"
        android:layout_width="match_parent"
        android:layout_height="wrap_content">

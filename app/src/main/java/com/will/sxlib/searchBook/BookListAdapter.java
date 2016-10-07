@@ -65,6 +65,8 @@ public class BookListAdapter extends CustomRecyclerAdapter<Book> {
                 .setText(R.id.book_item_publisher,item.getPublisher())
                 .setText(R.id.book_item_isbn,"ISBN："+item.getIsbn());
         final ImageView cover = (ImageView) holder.getView(R.id.book_item_cover);
+        //因为图片地址是异步获取，将会产生延迟，故先将cover设置为loading图片，避免列表错乱
+        Picasso.with(mContext).load(R.drawable.loading_image).into(cover);
         if(mContext == null){
             mContext = getRecyclerView().getContext();
         }

@@ -39,5 +39,10 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">16sp</item>
     </style>
+    <style name="favorite_item_textAppearance">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
 
 </resources>

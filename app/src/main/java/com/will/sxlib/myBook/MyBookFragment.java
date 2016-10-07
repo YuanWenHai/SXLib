@@ -8,12 +8,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.will.sxlib.MainActivity;
 import com.will.sxlib.R;
 import com.will.sxlib.base.BaseActivity;
 import com.will.sxlib.base.BaseFragment;
 import com.will.sxlib.util.ErrorCode;
+import com.will.sxlib.util.SPHelper;
 
 /**
  * Created by Will on 2016/5/31.
@@ -21,9 +24,18 @@ import com.will.sxlib.util.ErrorCode;
 public class MyBookFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
     private SwipeRefreshLayout refreshLayout;
     private MyBookAdapter adapter;
+    private Switch switcher;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View view  = inflater.inflate(R.layout.fragment_my_book,null);
+        switcher = (Switch)view.findViewById(R.id.my_book_switcher);
+        switcher.setChecked(SPHelper.getReturnNotificationState());
+        switcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SPHelper.setReturnNotificationState(isChecked);
+            }
+        });
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.my_book_refresh_layout);
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));

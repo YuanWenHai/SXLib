@@ -14,6 +14,10 @@
             android:id="@+id/navigation_item_my_book"
             android:title="@string/renew_book"
             android:icon="@drawable/ic_filter_none_black_24dp"/>
+        <item
+            android:id="@+id/navigation_item_my_favorite"
+            android:title="@string/my_favorite"
+            android:icon="@drawable/ic_favorite_border_black_24dp"/>
     </group>
     <group android:id="@+id/navigation_group_user" android:checkableBehavior="none">
 
