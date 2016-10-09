@@ -22,30 +22,41 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.will.sxlib.base.BaseActivity;
+import com.will.sxlib.base.MyFragments;
 import com.will.sxlib.guide.GuideFragment;
 import com.will.sxlib.myBook.MyBookFragment;
 import com.will.sxlib.searchBook.SearchFragment;
 import com.will.sxlib.util.ErrorCode;
+import com.will.sxlib.util.FragmentSwitcher;
 import com.will.sxlib.util.SPHelper;
 import com.will.sxlib.util.UserOperationHelper;
 
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
+import static android.R.attr.fragment;
+import static com.will.sxlib.base.MyFragments.GUIDE;
+import static com.will.sxlib.base.MyFragments.MY_BOOK;
+import static com.will.sxlib.base.MyFragments.SEARCH;
+
 public class MainActivity extends BaseActivity{
+    /*
     public static final int SEARCH = 0;
     public static final int GUIDE = 1;
     public static final int MY_BOOK = 2;
     public static final int MY_FAVORITE = 3;
+    */
     private DrawerLayout drawerLayout;
     private ImageButton arrow;
     private NavigationView navigationView;
     private TextView userName;
-    private FragmentManager fragmentManager = getFragmentManager();
+        private FragmentManager fragmentManager = getFragmentManager();
     private AlertDialog loginDialog;
     private AlertDialog changePasswordDialog;
-    public View statusBar;
+    private View statusBar;
 
-    private int selectedItem = SEARCH;
+    private FragmentSwitcher fragmentSwitcher;
+
+    private MyFragments selectedItem = SEARCH;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +83,8 @@ public class MainActivity extends BaseActivity{
      * 初始化view
      */
     private void initializeView(){
+        fragmentSwitcher = new FragmentSwitcher(this);
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         statusBar = findViewById(R.id.status_bar);
@@ -206,7 +219,7 @@ public class MainActivity extends BaseActivity{
                             drawerLayout.closeDrawers();
                         break;
                     case R.id.navigation_item_my_favorite:
-                            selectedItem = MY_FAVORITE;
+                            selectedItem = MyFragments.MY_FAVORITE;
                             drawerLayout.closeDrawers();
                         break;
 
@@ -256,23 +269,13 @@ public class MainActivity extends BaseActivity{
      * 但这样可以避免fragment的重复创建，提升用户体验
      * @param which 被点击的item
      */
-    public void switchNavigationItems(int which){
+    public void switchNavigationItems(MyFragments which){
+        fragmentSwitcher.switchTo(which);
+        /*
         Fragment fragment;
        switch (which){
            case SEARCH :
-               fragment = fragmentManager.findFragmentByTag("search");
-               if(fragment == null) {
-                   fragmentManager.beginTransaction().setCustomAnimations(R.animator.animator_in,R.animator.animator_out)
-                           .add(R.id.fragment_container, new SearchFragment(), "search")
-                           .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
-               }else{
-                   if (!fragment.isVisible()){
-                       fragmentManager.beginTransaction().setCustomAnimations(R.animator.animator_in,R.animator.animator_out)
-                               .show(fragment)
-                               .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
-                   }
-               }hideOtherFragments(which);
-               //drawerLayout.closeDrawer(GravityCompat.START);
+               fragmentSwitcher.switchTo(which);
                statusBar.setBackgroundResource(R.drawable.status_bar_bg);
                break;
            case GUIDE :
@@ -304,15 +307,16 @@ public class MainActivity extends BaseActivity{
                statusBar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                break;
        }
+       */
     }
 
     /**
      * 隐藏其他的fragment显示
      * @param which 除了which，其余全部隐藏
      */
-    private void hideOtherFragments(int which){
+    /*private void hideOtherFragments(int which){
         switch (which){
-            case 0:
+            case SEARCH:
                 if(fragmentManager.findFragmentByTag("guide") != null) {
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("guide")).commit();
                 }
@@ -320,7 +324,7 @@ public class MainActivity extends BaseActivity{
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("myBook")).commit();
                 }
                 break;
-            case 1:
+            case GUIDE:
                 if(fragmentManager.findFragmentByTag("search") != null) {
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("search")).commit();
                 }
@@ -328,7 +332,7 @@ public class MainActivity extends BaseActivity{
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("myBook")).commit();
                 }
                 break;
-            case 2:
+            case MY_BOOK:
                 if(fragmentManager.findFragmentByTag("guide") != null) {
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("guide")).commit();
                 }
@@ -336,8 +340,11 @@ public class MainActivity extends BaseActivity{
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("search")).commit();
                 }
                 break;
+            case MY_FAVORITE:
+
         }
     }
+    */
 
     /**
      * 将user信息写入sharedPreferences，在登录dialog中调用
@@ -434,7 +441,9 @@ public class MainActivity extends BaseActivity{
         SPHelper.clearConfig();
         userName.setText("匿名用户");
     }
-
+    public View getStatusBar(){
+        return statusBar;
+    }
 
 
     private Toast exitToast;

@@ -1,0 +1,109 @@
+[33mcommit 65351e562da93a8275bf2c84495879d71932343b[m
+Author: will <a2265839@gmail.com>
+Date:   Fri Oct 7 21:53:42 2016 +0800
+
+    增加MyFavorite界面，正在完成
+
+[33mcommit ae754c8eca06c209b88d89231554355e1c1552bf[m
+Author: will <a2265839@gmail.com>
+Date:   Sat Oct 1 19:38:46 2016 +0800
+
+    更改了搜索结果页面的listAdapter
+
+[33mcommit 1a1978ded37dddb24d7795fae9e15bdfaf7e2e75[m
+Author: will <a2265839@gmail.com>
+Date:   Sun Jul 24 19:18:37 2016 +0800
+
+    在已有结果列表界面搜索时加入toolbar提示
+    
+    rt
+
+[33mcommit 5ca1e8c010468ec393a1659bf341d7036b0904ce[m
+Author: will <a2265839@gmail.com>
+Date:   Fri Jun 10 11:00:55 2016 +0800
+
+    小改动
+    
+    修改工具类中context的获取方式，改为使用applicationContext，增加双击退出，避免误触。
+
+[33mcommit c65d141659f76c3c6f123cab32ef34db12246924[m
+Author: will <a2265839@gmail.com>
+Date:   Sat Jun 4 00:44:26 2016 +0800
+
+    增加了一些注释
+
+[33mcommit 70ebc681e2a3e7d44b86493df47530eeea69416d[m
+Author: will <a2265839@gmail.com>
+Date:   Fri Jun 3 17:57:42 2016 +0800
+
+    修复一些bug
+    
+    rt
+
+[33mcommit 96c03609abc270de8b0436a860c469ab8dc8c8ad[m
+Author: will <a2265839@gmail.com>
+Date:   Fri Jun 3 15:24:01 2016 +0800
+
+    增加读者指南，修改密码功能
+    
+    如上
+
+[33mcommit f92c1b445a719cbb3bc7f80aa16c3d58d07cb23a[m
+Author: YuanWenHai <a2265839@gmail.com>
+Date:   Tue May 31 23:56:16 2016 +0800
+
+    Update README.md
+
+[33mcommit a65018b4f763ea64cc30301a43ab962781535322[m
+Author: YuanWenHai <a2265839@gmail.com>
+Date:   Tue May 31 23:53:56 2016 +0800
+
+    Update README.md
+
+[33mcommit d701d03d769a153e325ed9fb7ed3a0cc8d804561[m
+Author: will <a2265839@gmail.com>
+Date:   Tue May 31 23:52:36 2016 +0800
+
+    改变图片尺寸
+
+[33mcommit 504eee8378db4c2eb9a6d91bfdb1587f22f1841a[m
+Author: YuanWenHai <a2265839@gmail.com>
+Date:   Tue May 31 23:50:35 2016 +0800
+
+    Update README.md
+
+[33mcommit 3120a5ebc8ddac35c6f46c2ee6d533ca37840ede[m
+Author: will <a2265839@gmail.com>
+Date:   Tue May 31 23:45:24 2016 +0800
+
+    添加截图
+
+[33mcommit c62b6cba1be36036e4a0e7ee3eb7192390481680[m
+Author: YuanWenHai <a2265839@gmail.com>
+Date:   Tue May 31 21:55:42 2016 +0800
+
+    Create README.md
+
+[33mcommit d95f0daf0b26d4acef38451727126992926e354d[m
+Author: will <a2265839@gmail.com>
+Date:   Tue May 31 21:48:22 2016 +0800
+
+    基本完成
+    
+    还剩下些细枝末节的东西，比如对sdk19之下透明statusBar的不兼容
+
+[33mcommit d7717ec13badccfbcba8bca19310569b5579c84a[m
+Author: will <a2265839@gmail.com>
+Date:   Mon May 30 23:53:14 2016 +0800
+
+    5.30更新
+    
+    检索，详情，登陆已完成，还剩借阅界面
+
+[33mcommit 34d981980f3213b4f6781380fd7bd68834ea4ef5[m
+Author: will <a2265839@gmail.com>
+Date:   Sat May 28 23:40:39 2016 +0800
+
+    SXLib
+    
+    山西省图书馆资源索引&登陆续借应用

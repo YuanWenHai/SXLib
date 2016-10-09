@@ -15,6 +15,7 @@ import com.will.sxlib.MainActivity;
 import com.will.sxlib.R;
 import com.will.sxlib.base.BaseActivity;
 import com.will.sxlib.base.BaseFragment;
+import com.will.sxlib.base.MyFragments;
 import com.will.sxlib.util.ErrorCode;
 import com.will.sxlib.util.SPHelper;
 
@@ -83,7 +84,7 @@ public class MyBookFragment extends BaseFragment implements SwipeRefreshLayout.O
                }else if (code == ErrorCode.PASSWORD_INVALID){
                    showToast("密码已被修改，请重新登录");
                    ((MainActivity)getActivity()).logout();
-                   ((MainActivity)getActivity()).switchNavigationItems(MainActivity.SEARCH);
+                   ((MainActivity)getActivity()).switchNavigationItems(MyFragments.SEARCH);
                }
                 refreshLayout.setRefreshing(false);
             }
