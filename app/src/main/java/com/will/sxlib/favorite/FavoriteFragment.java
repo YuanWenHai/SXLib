@@ -1,5 +1,6 @@
 package com.will.sxlib.favorite;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,12 +14,15 @@ import android.widget.Switch;
 import com.will.sxlib.MainActivity;
 import com.will.sxlib.R;
 import com.will.sxlib.base.BaseFragment;
+import com.will.sxlib.bean.Book;
+import com.will.sxlib.bookDetail.BookDetailActivity;
 import com.will.sxlib.util.SPHelper;
 
 /**
  * Created by Will on 2016/10/3.
  */
 public class FavoriteFragment extends BaseFragment {
+    private FavoriteAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorite,container,false);
@@ -28,7 +32,16 @@ public class FavoriteFragment extends BaseFragment {
         Switch switcher = (Switch)view.findViewById(R.id.favorite_switcher);
         setupSwitcher(switcher);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new FavoriteAdapter());
+        adapter = new FavoriteAdapter(getActivity());
+        recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new FavoriteAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Book book) {
+                Intent intent = new Intent(getActivity(), BookDetailActivity.class);
+                intent.putExtra("book",book);
+                getActivity().startActivity(intent);
+            }
+        });
         return view;
     }
 
@@ -54,5 +67,12 @@ public class FavoriteFragment extends BaseFragment {
             }
         });
         toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        if(!hidden){
+            adapter.refreshData();
+        }
     }
 }

@@ -1,7 +1,6 @@
 package com.will.sxlib.util;
 
 import android.app.Fragment;
-import android.util.Log;
 
 import com.will.sxlib.MainActivity;
 import com.will.sxlib.R;
@@ -9,6 +8,7 @@ import com.will.sxlib.base.MyFragments;
 
 /**
  * Created by admin on 2016/10/9.
+ * 一个控制fragment切换的工具类
  */
 
 public class FragmentSwitcher {
@@ -21,6 +21,11 @@ public class FragmentSwitcher {
         mActivity = activity;
         this.containerRes = containerRes;
     }
+
+    /**
+     * 跳转到指定fragment，并隐藏其他fragment显示
+     * @param which
+     */
     public void switchTo(MyFragments which){
         if(!ifFragmentVisible(which)){
             showOrCreateFragment(which);

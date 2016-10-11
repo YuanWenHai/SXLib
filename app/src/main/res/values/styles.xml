@@ -44,5 +44,9 @@
         <item name="android:textSize">18sp</item>
         <item name="android:layout_margin">10dp</item>
     </style>
+    <style name="book_list_item_textAppearance">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 
 </resources>

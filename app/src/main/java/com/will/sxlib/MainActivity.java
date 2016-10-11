@@ -49,7 +49,6 @@ public class MainActivity extends BaseActivity{
     private ImageButton arrow;
     private NavigationView navigationView;
     private TextView userName;
-        private FragmentManager fragmentManager = getFragmentManager();
     private AlertDialog loginDialog;
     private AlertDialog changePasswordDialog;
     private View statusBar;
@@ -271,80 +270,8 @@ public class MainActivity extends BaseActivity{
      */
     public void switchNavigationItems(MyFragments which){
         fragmentSwitcher.switchTo(which);
-        /*
-        Fragment fragment;
-       switch (which){
-           case SEARCH :
-               fragmentSwitcher.switchTo(which);
-               statusBar.setBackgroundResource(R.drawable.status_bar_bg);
-               break;
-           case GUIDE :
-               fragment = fragmentManager.findFragmentByTag("guide");
-               if(fragment == null) {
-                   fragmentManager.beginTransaction().setCustomAnimations(R.animator.animator_in,R.animator.animator_out)
-                           .add(R.id.fragment_container, new GuideFragment(), "guide").commit();
-               }else{
-                   if (!fragment.isVisible()){
-                       fragmentManager.beginTransaction().setCustomAnimations(R.animator.animator_in,R.animator.animator_out)
-                               .show(fragment).commit();
-                   }
-               }
-               hideOtherFragments(which);
-               statusBar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-               break;
-           case MY_BOOK:
-               fragment = fragmentManager.findFragmentByTag("myBook");
-               if(fragment == null) {
-                   fragmentManager.beginTransaction().setCustomAnimations(R.animator.animator_in,R.animator.animator_out)
-                           .add(R.id.fragment_container, new MyBookFragment(), "myBook").commit();
-               }else{
-                   if (!fragment.isVisible()){
-                       fragmentManager.beginTransaction().setCustomAnimations(R.animator.animator_in,R.animator.animator_out)
-                               .show(fragment).commit();
-                   }
-               }
-               hideOtherFragments(which);
-               statusBar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-               break;
-       }
-       */
     }
 
-    /**
-     * 隐藏其他的fragment显示
-     * @param which 除了which，其余全部隐藏
-     */
-    /*private void hideOtherFragments(int which){
-        switch (which){
-            case SEARCH:
-                if(fragmentManager.findFragmentByTag("guide") != null) {
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("guide")).commit();
-                }
-                if(fragmentManager.findFragmentByTag("myBook") != null){
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("myBook")).commit();
-                }
-                break;
-            case GUIDE:
-                if(fragmentManager.findFragmentByTag("search") != null) {
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("search")).commit();
-                }
-                if(fragmentManager.findFragmentByTag("myBook") != null){
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("myBook")).commit();
-                }
-                break;
-            case MY_BOOK:
-                if(fragmentManager.findFragmentByTag("guide") != null) {
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("guide")).commit();
-                }
-                if(fragmentManager.findFragmentByTag("search") != null){
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("search")).commit();
-                }
-                break;
-            case MY_FAVORITE:
-
-        }
-    }
-    */
 
     /**
      * 将user信息写入sharedPreferences，在登录dialog中调用

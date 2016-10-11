@@ -28,46 +28,41 @@
                 android:id="@+id/book_item_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/book_item_text_size"
-                android:textColor="@color/black"
                 android:singleLine="true"
-                tools:text="书名：android简史"/>
+                tools:text="书名：android简史"
+                style="@style/book_list_item_textAppearance"/>
             <TextView
                 android:id="@+id/book_item_author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/book_item_text_size"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/black"
                 android:singleLine="true"
-                tools:text="作者：Google"/>
+                tools:text="作者：Google"
+                style="@style/book_list_item_textAppearance"/>
             <TextView
                 android:id="@+id/book_item_publish_year"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/book_item_text_size"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/black"
                 android:singleLine="true"
-                tools:text="出版年份：2014"/>
+                tools:text="出版年份：2014"
+                style="@style/book_list_item_textAppearance"/>
             <TextView
                 android:id="@+id/book_item_publisher"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/book_item_text_size"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/black"
                 android:singleLine="true"
-                tools:text="出版社：工业科技出版社"/>
+                tools:text="出版社：工业科技出版社"
+                style="@style/book_list_item_textAppearance"/>
             <TextView
                 android:id="@+id/book_item_isbn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/book_item_text_size"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/black"
                 android:singleLine="true"
-                tools:text="ISBN：978-7-302-28340-9"/>
+                tools:text="ISBN：978-7-302-28340-9"
+                style="@style/book_list_item_textAppearance"/>
         </LinearLayout>
     </RelativeLayout>
 

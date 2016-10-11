@@ -74,12 +74,12 @@ public enum  MyFragments {
 
         @Override
         public void setStatusBar(View view) {
-
+            view.setBackgroundColor(MyApplication.getGlobalContext().getResources().getColor(R.color.colorPrimaryDark));
         }
     };
 
     private int value;
-    private MyFragments(int value){
+     MyFragments(int value){
         this.value = value;
     }
     public abstract BaseFragment getFragment();

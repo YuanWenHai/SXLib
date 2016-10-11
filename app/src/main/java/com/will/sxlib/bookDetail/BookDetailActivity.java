@@ -69,6 +69,9 @@ public class BookDetailActivity extends BaseActivity {
                     public void onSuccess() {
                         getSupportActionBar().setTitle("详情");
                         loadingCompleted = true;
+                        if(favorited){
+                            DBManager.getInstance().updateState(book.getTitle(),adapter.getBookState());
+                        }
                     }
 
                     @Override
@@ -152,7 +155,8 @@ public class BookDetailActivity extends BaseActivity {
             }else{
                 if(loadingCompleted){
                     item.setIcon(R.drawable.ic_favorite_white_24dp);
-                    DBManager.getInstance().add(book.getTitle(),adapter.getBookState());
+                    //DBManager.getInstance().add(book.getTitle(),adapter.getBookState());
+                    DBManager.getInstance().add(book,adapter.getBookState());
                 }else{
                     showToast("数据未加载完毕,请稍后重试");
                 }
