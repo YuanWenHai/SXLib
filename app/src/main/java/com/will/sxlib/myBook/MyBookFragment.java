@@ -56,6 +56,8 @@ public class MyBookFragment extends BaseFragment implements SwipeRefreshLayout.O
             @Override
             public void onSuccess() {
                 showToast("续借成功");
+                refreshLayout.setRefreshing(true);
+                onRefresh();
             }
             @Override
             public void onFailure(ErrorCode code) {
@@ -98,4 +100,11 @@ public class MyBookFragment extends BaseFragment implements SwipeRefreshLayout.O
         adapter.loadData();
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        if(!hidden){
+            refreshLayout.setRefreshing(true);
+            onRefresh();
+        }
+    }
 }

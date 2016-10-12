@@ -109,7 +109,7 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.MyBookView
                                 helper.renewBook(data.get(getAdapterPosition()).getBarCode().replace("条码号: ",""), new UserOperationHelper.DoRenewCallback() {
                                     @Override
                                     public void onSuccess() {
-                                        loadData();
+                                        //loadData();
                                         renewCallback.onSuccess();
                                     }
                                     @Override

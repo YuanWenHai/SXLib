@@ -5,6 +5,8 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -135,5 +137,12 @@ public class BookListAdapter extends CustomRecyclerAdapter<Book> {
     public void refreshWithAnotherKeyword(String keyword){
         this.keyword = keyword;
         refreshData();
+    }
+
+    @Override
+    protected Animation getItemAnimation() {
+        TranslateAnimation translateAnimation = new TranslateAnimation(getRecyclerView().getWidth(),0,0,0);
+        translateAnimation.setDuration(300);
+        return translateAnimation;
     }
 }

@@ -19,7 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS favorite"+
                 "(_id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT, state BOOLEAN ,author TEXT ," +
-                "publish_date TEXT , press TEXT , isbn TEXT, cover TEXT，book_number TEXT)");
+                "publish_date TEXT , press TEXT , isbn TEXT, cover TEXT,book_number TEXT)");
     }
 
     @Override

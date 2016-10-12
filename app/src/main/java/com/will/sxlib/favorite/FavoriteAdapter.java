@@ -2,7 +2,6 @@ package com.will.sxlib.favorite;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,7 @@ import java.util.List;
 /**
  * Created by Will on 2016/10/3.
  */
-public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.MyHolder>{
+public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.MyHolder> {
     private List<FavoriteItem> data;
     private Context mContext;
     private OnItemClickListener listener;
@@ -57,7 +56,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.MyHold
         Picasso.with(mContext).load(R.drawable.loading_image).into(holder.cover);
         String url = item.getCoverUrl();
         if(url.isEmpty()){
-            holder.cover.setImageResource(R.drawable.no_image_available);
+            Picasso.with(mContext).load(R.drawable.no_image_available).into(holder.cover);
         }else{
             Picasso.with(mContext).load(url).into(holder.cover);
         }

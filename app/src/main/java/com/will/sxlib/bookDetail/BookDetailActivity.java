@@ -70,6 +70,7 @@ public class BookDetailActivity extends BaseActivity {
                         getSupportActionBar().setTitle("详情");
                         loadingCompleted = true;
                         if(favorited){
+                            //如果为已关注条目，在获取到书籍状态之后更新数据库状态数据
                             DBManager.getInstance().updateState(book.getTitle(),adapter.getBookState());
                         }
                     }

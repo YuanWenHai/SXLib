@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 
 import com.will.sxlib.util.ErrorCode;
 
@@ -17,6 +19,7 @@ import java.util.List;
  * 此时将在末尾展示loadingFailedView</p>
  * <p>loadingFailedView的点击默认实现为重新加载，可以通过{@link #setOnReloadListener(OnReloadClickListener)}替换</p>
  * <p>提供了refreshData方法刷新内容</p>
+ * <p>提供默认ItemAnimation，可通过重写{@link #getItemAnimation()}返回自定义Animation,{@link #useItemAnimation()}可取消使用ItemAnimation </p>
  */
 public abstract class CustomRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
@@ -32,6 +35,8 @@ public abstract class CustomRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
     private int loadingFailedViewRes;
     private boolean loadingSuccessful = true;
     private RecyclerView mRecyclerView;
+
+    private int lastAnimatedItemIndex = -1;
     public CustomRecyclerAdapter(int layoutRes, int loadingViewRes, int loadingFailedViewRes){
         data = new ArrayList<>();
         this.layoutRes = layoutRes;
@@ -77,6 +82,10 @@ public abstract class CustomRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position){
         if(holder instanceof BaseRecyclerViewHolder){
+            if( useItemAnimation() && position > lastAnimatedItemIndex){
+                animate(holder.itemView);
+                lastAnimatedItemIndex = position;
+            }
             convert((BaseRecyclerViewHolder) holder,data.get(position));
         }else if(holder instanceof CustomRecyclerAdapter.LoadingViewHolder) {
             if(!isLoading){
@@ -225,5 +234,41 @@ public abstract class CustomRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
     }
     public interface OnReloadClickListener{
         void onReload();
+    }
+
+    /**
+     * 为item添加动画。此处使用了延时队列，主要是为了保证最先出现的几个ItemAnimation的次序性
+     * <p>但同时的，因为有延时存在，会出现ItemView已经展示完毕动画才开始的情况，故在将任务加入队列时隐藏该view,在队列任务执行时
+     * 再将ItemView设为可见.</p>
+     * <p>不过我总觉得这可能会出现一些问题...</p>
+     * @param view 将要执行动画的View
+     */
+    private void animate(final View view){
+        view.setVisibility(View.INVISIBLE);
+        getRecyclerView().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.startAnimation(getItemAnimation());
+                view.setVisibility(View.VISIBLE);
+            }
+        },50);
+    }
+
+    /**
+     * 重写本方法可使用自定义itemAnimation
+     * @return animation
+     */
+    protected Animation getItemAnimation(){
+        AlphaAnimation alphaAnimation = new AlphaAnimation( 0.2f, 1.0f);
+        alphaAnimation.setDuration(1000);
+        return alphaAnimation;
+    }
+
+    /**
+     * 重写此方法可以取消itemAnimation
+     * @return 是否执行animation
+     */
+    protected boolean useItemAnimation(){
+        return true;
     }
 }

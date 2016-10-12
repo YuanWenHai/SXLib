@@ -1,8 +1,5 @@
 package com.will.sxlib;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -23,9 +20,7 @@ import android.widget.Toast;
 
 import com.will.sxlib.base.BaseActivity;
 import com.will.sxlib.base.MyFragments;
-import com.will.sxlib.guide.GuideFragment;
-import com.will.sxlib.myBook.MyBookFragment;
-import com.will.sxlib.searchBook.SearchFragment;
+import com.will.sxlib.notification.NotificationChecker;
 import com.will.sxlib.util.ErrorCode;
 import com.will.sxlib.util.FragmentSwitcher;
 import com.will.sxlib.util.SPHelper;
@@ -33,7 +28,6 @@ import com.will.sxlib.util.UserOperationHelper;
 
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
-import static android.R.attr.fragment;
 import static com.will.sxlib.base.MyFragments.GUIDE;
 import static com.will.sxlib.base.MyFragments.MY_BOOK;
 import static com.will.sxlib.base.MyFragments.SEARCH;
@@ -64,7 +58,7 @@ public class MainActivity extends BaseActivity{
         setupArrowIndex();
         setupNavigationViewClickEvent();
         switchNavigationItems(SEARCH);
-        ///new NotificationChecker(this).check();
+        new NotificationChecker(this).check();
     }
 
     /**
