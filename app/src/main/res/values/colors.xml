@@ -11,4 +11,5 @@
     <color name="white">#eeeeee</color>
     <color name="transparent">#00000000</color>
     <color name="logo_bg_color">#484443</color>
+    <color name="material_red">#F44336</color>
 </resources>

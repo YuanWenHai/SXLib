@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardUseCompatPadding="true"
-    android:clickable="true"
     android:transitionName="item"
     android:id="@+id/book_item">
     <RelativeLayout

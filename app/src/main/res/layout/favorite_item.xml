@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <com.will.sxlib.view.VDHLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/favorite_item_dragging_view"
+    android:clickable="true"
+    >
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-       <FrameLayout
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content">
-           <include layout="@layout/book_item"
-               android:id="@+id/favorite_item_view"/>
-       </FrameLayout>
-    <TextView
-        android:id="@+id/favorite_item_state"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:gravity="center"
-        android:layout_margin="5dp"
-        tools:text="在馆"
-        android:textSize="18sp"
-        android:textColor="@color/colorPrimary"/>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <include layout="@layout/book_item"
+                android:id="@+id/favorite_item_view"/>
+        </FrameLayout>
+        <TextView
+            android:id="@+id/favorite_item_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:gravity="center"
+            android:background="@drawable/border_indigo"
+            android:layout_margin="8dp"
+            tools:text="在馆"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimary"/>
     </FrameLayout>
+</com.will.sxlib.view.VDHLayout>
