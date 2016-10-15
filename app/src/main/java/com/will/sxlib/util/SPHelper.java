@@ -38,11 +38,18 @@ public class SPHelper {
 
 
 
-    public static void setLastNotifiedDate(int day){
-        editor.putInt("last_notified_date",day).apply();
+    public static void setLastReturnNotifiedDate(int day){
+        editor.putInt("last_return_notified_date",day).apply();
     }
-    public static int getLastNotifiedDate(){
-        return configSP.getInt("last_notified_date",0);
+    public static int getLastReturnNotifiedDate(){
+        return configSP.getInt("last_return_notified_date",0);
+    }
+
+    public static void setLastLoanNotifiedDate(int day){
+        editor.putInt("last_loan_notified_date",day).apply();
+    }
+    public static int getLastLoanNotifiedDate(){
+        return configSP.getInt("last_loan_notified_date",0);
     }
 
 
@@ -71,7 +78,19 @@ public class SPHelper {
     }
 
 
+
+
+    public static boolean getArrowState(){
+        return  configSP.getBoolean("arrow_state",false);
+    }
+    public static void setArrowState(boolean state){
+        editor.putBoolean("arrow_state",state).apply();
+    }
+
+
+
     public static void clearConfig(){
         editor.clear().commit();
     }
+
 }

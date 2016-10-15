@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <com.will.sxlib.view.VDHLayout
+    <com.will.sxlib.view.RemovableView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/favorite_item_dragging_view"
     android:clickable="true"
+    android:focusable="true"
     >
     <FrameLayout
         android:layout_width="match_parent"
@@ -13,8 +14,7 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <include layout="@layout/book_item"
-                android:id="@+id/favorite_item_view"/>
+            <include layout="@layout/book_item" />
         </FrameLayout>
         <TextView
             android:id="@+id/favorite_item_state"
@@ -28,4 +28,4 @@
             android:textSize="18sp"
             android:textColor="@color/colorPrimary"/>
     </FrameLayout>
-</com.will.sxlib.view.VDHLayout>
+</com.will.sxlib.view.RemovableView>

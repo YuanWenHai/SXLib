@@ -27,8 +27,8 @@ import java.util.List;
  * Created by Will on 2016/10/2.
  */
 public class NotificationChecker {
-    UserOperationHelper helper;
-    Context context;
+    private UserOperationHelper helper;
+    private Context context;
     public NotificationChecker(Context context){
         helper = UserOperationHelper.getInstance(SPHelper.getAccount(),SPHelper.getPassword());
         this.context = context;
@@ -39,8 +39,7 @@ public class NotificationChecker {
 
     public void check(){
         //关于还书信息的通知，应对登陆状态进行处理
-        if(checkDate()){
-            if(SPHelper.getReturnNotificationState() ){
+            if(SPHelper.getReturnNotificationState() && checkReturnNotifiedDate()){
                 if(!SPHelper.getUserName().isEmpty()){
                     fetchLoanData();
                 }else{
@@ -48,10 +47,9 @@ public class NotificationChecker {
                     SPHelper.setReturnNotificationState(false);
                 }
             }
-            if(SPHelper.getLoanableNotificationState()){
+            if(SPHelper.getLoanableNotificationState() && checkLoanNotifiedDate()){
                 fetchBookStateData();
             }
-        }
     }
     private void fetchLoanData(){
         helper.getLoanData(new UserOperationHelper.RenewCallback() {
@@ -130,12 +128,22 @@ public class NotificationChecker {
      * 检查日期并写入sp，避免一天内多次显示
      * @return
      */
-    private boolean checkDate(){
+    private boolean checkReturnNotifiedDate(){
         Calendar c = Calendar.getInstance();
         int currentDay = c.get(Calendar.DAY_OF_YEAR);
-        int lastDay = SPHelper.getLastNotifiedDate();
+        int lastDay = SPHelper.getLastReturnNotifiedDate();
         if(currentDay != lastDay){
-            SPHelper.setLastNotifiedDate(currentDay);
+            SPHelper.setLastReturnNotifiedDate(currentDay);
+            return true;
+        }
+        return false;
+    }
+    private boolean checkLoanNotifiedDate(){
+        Calendar c = Calendar.getInstance();
+        int currentDay = c.get(Calendar.DAY_OF_YEAR);
+        int lastDay = SPHelper.getLastLoanNotifiedDate();
+        if(currentDay != lastDay){
+            SPHelper.setLastLoanNotifiedDate(currentDay);
             return true;
         }
         return false;

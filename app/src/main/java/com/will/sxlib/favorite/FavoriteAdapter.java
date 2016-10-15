@@ -15,7 +15,7 @@ import com.will.sxlib.base.MyApplication;
 import com.will.sxlib.bean.Book;
 import com.will.sxlib.bean.FavoriteItem;
 import com.will.sxlib.util.DBManager;
-import com.will.sxlib.view.VDHLayout;
+import com.will.sxlib.view.RemovableView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,13 +107,13 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.MyHold
                     }
                 }
             });
-            ((VDHLayout)view).setOnRemoveCallback(new VDHLayout.OnRemoveCallback() {
+            ((RemovableView)view).setOnRemoveCallback(new RemovableView.OnRemoveCallback() {
                 @Override
                 public void onRemove(View removedView) {
                     removeItem(getAdapterPosition());
                 }
             });
-            ((VDHLayout)view).setAutoRemoveMultiplier(0.3f);
+            ((RemovableView)view).setAutoRemoveMultiplier(0.3f);
         }
     }
 
@@ -135,7 +135,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.MyHold
                    view.setVisibility(View.VISIBLE);
                    lastAnimatedIndex = position;
                }
-           },100);
+           },200);
        }
     }
     @Override

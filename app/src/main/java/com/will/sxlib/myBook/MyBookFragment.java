@@ -16,6 +16,7 @@ import com.will.sxlib.R;
 import com.will.sxlib.base.BaseActivity;
 import com.will.sxlib.base.BaseFragment;
 import com.will.sxlib.base.MyFragments;
+import com.will.sxlib.notification.NotificationChecker;
 import com.will.sxlib.util.ErrorCode;
 import com.will.sxlib.util.SPHelper;
 
@@ -25,16 +26,16 @@ import com.will.sxlib.util.SPHelper;
 public class MyBookFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
     private SwipeRefreshLayout refreshLayout;
     private MyBookAdapter adapter;
-    private Switch switcher;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View view  = inflater.inflate(R.layout.fragment_my_book,null);
-        switcher = (Switch)view.findViewById(R.id.my_book_switcher);
+        Switch switcher = (Switch)view.findViewById(R.id.my_book_switcher);
         switcher.setChecked(SPHelper.getReturnNotificationState());
         switcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SPHelper.setReturnNotificationState(isChecked);
+                new NotificationChecker(getActivity()).check();
             }
         });
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.my_book_refresh_layout);

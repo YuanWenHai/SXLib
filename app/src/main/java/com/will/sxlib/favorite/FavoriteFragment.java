@@ -16,6 +16,7 @@ import com.will.sxlib.R;
 import com.will.sxlib.base.BaseFragment;
 import com.will.sxlib.bean.Book;
 import com.will.sxlib.bookDetail.BookDetailActivity;
+import com.will.sxlib.notification.NotificationChecker;
 import com.will.sxlib.util.SPHelper;
 
 /**
@@ -51,6 +52,7 @@ public class FavoriteFragment extends BaseFragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SPHelper.setLoanableNotificationState(isChecked);
+                new NotificationChecker(getActivity()).check();
             }
         });
     }

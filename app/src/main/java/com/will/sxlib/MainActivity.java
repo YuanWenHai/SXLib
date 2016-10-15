@@ -6,8 +6,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
-import android.transition.Fade;
-import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,7 +38,6 @@ public class MainActivity extends BaseActivity{
     public static final int MY_FAVORITE = 3;
     */
     private DrawerLayout drawerLayout;
-    private ImageButton arrow;
     private NavigationView navigationView;
     private TextView userName;
     private AlertDialog loginDialog;
@@ -82,7 +79,6 @@ public class MainActivity extends BaseActivity{
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         statusBar = findViewById(R.id.status_bar);
         RelativeLayout header = (RelativeLayout) navigationView.getHeaderView(0);
-        arrow = (ImageButton) header.findViewById(R.id.drawer_header_arrow);
         userName = (TextView) header.findViewById(R.id.drawer_header_user_name);
         userName.setText(SPHelper.getUserName());
         drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
@@ -171,18 +167,19 @@ public class MainActivity extends BaseActivity{
      * 初始化header中的箭头按钮，点击控制登录/修改密码这两个item的出现与隐藏事件。
      */
     private void setupArrowIndex(){
+        ImageButton arrow = (ImageButton) findViewById(R.id.drawer_header_arrow);
+        arrow.setSelected(SPHelper.getArrowState());
         arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(v.isSelected()){
                     v.setSelected(false);
-                    TransitionManager.beginDelayedTransition(navigationView,new Fade().setDuration(200));
                     navigationView.getMenu().setGroupVisible(R.id.navigation_group_user,true);
                 }else{
                     v.setSelected(true);
-                    TransitionManager.beginDelayedTransition(navigationView,new Fade().setDuration(200));
                     navigationView.getMenu().setGroupVisible(R.id.navigation_group_user,false);
                 }
+                SPHelper.setArrowState(v.isSelected());
             }
         });
     }
