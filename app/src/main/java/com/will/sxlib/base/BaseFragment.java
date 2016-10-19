@@ -1,6 +1,8 @@
 package com.will.sxlib.base;
 
 import android.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 /**
@@ -19,5 +21,11 @@ public class BaseFragment extends Fragment {
         }
         toast.setText(message);
         toast.show();
+    }
+    public void setToolbarTitle(String title){
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if(actionBar != null){
+            actionBar.setTitle(title);
+        }
     }
 }

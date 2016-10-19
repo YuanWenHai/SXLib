@@ -34,6 +34,7 @@ public class RemovableView extends LinearLayout {
 
     private float lastX,lastY;
 
+
     private float touchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
 
     private boolean interceptHorizontalMotion;
@@ -84,6 +85,7 @@ public class RemovableView extends LinearLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 lastX = event.getX();
@@ -116,7 +118,7 @@ public class RemovableView extends LinearLayout {
 
                 break;
         }
-        mDragger.processTouchEvent(event);
+            mDragger.processTouchEvent(event);
             return true;
     }
     public void setAutoRemoveMultiplier(float multiplier){

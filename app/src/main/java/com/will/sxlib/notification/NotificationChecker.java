@@ -99,7 +99,7 @@ public class NotificationChecker {
     private void analyseLoanData(List<MyBook> list){
         for(MyBook book :list){
             int dayCount = compareToCurrentDate(book.getReturnDate().replace("应还日期:",""));
-            if(dayCount <= 60 ){
+            if(dayCount <= 7 ){
                 makeNotification("距离还书日期还剩"+dayCount+"天");
             }
         }

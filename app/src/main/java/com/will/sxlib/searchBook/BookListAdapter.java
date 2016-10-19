@@ -99,11 +99,15 @@ public class BookListAdapter extends CustomRecyclerAdapter<Book> {
             @Override
             public void onResponse(List<Book> books, String count) {
                 hasMore = books.size() == 10;
-                if(!hasMore){
+                if(!hasMore && !count.isEmpty()){
                     Toast.makeText(MyApplication.getGlobalContext(),"已到末页",Toast.LENGTH_SHORT).show();
                 }
                 update(true,books);
-                setActivityTitle("共计"+count+"条");
+                if(count.isEmpty()){
+                    setActivityTitle("无条目发现");
+                }else{
+                    setActivityTitle("共计"+count+"条");
+                }
             }
 
             @Override

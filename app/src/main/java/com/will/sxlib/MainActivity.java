@@ -31,19 +31,14 @@ import static com.will.sxlib.base.MyFragments.MY_BOOK;
 import static com.will.sxlib.base.MyFragments.SEARCH;
 
 public class MainActivity extends BaseActivity{
-    /*
-    public static final int SEARCH = 0;
-    public static final int GUIDE = 1;
-    public static final int MY_BOOK = 2;
-    public static final int MY_FAVORITE = 3;
-    */
+
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private TextView userName;
     private AlertDialog loginDialog;
     private AlertDialog changePasswordDialog;
     private View statusBar;
-
+    private ImageButton arrow;
     private FragmentSwitcher fragmentSwitcher;
 
     private MyFragments selectedItem = SEARCH;
@@ -74,9 +69,9 @@ public class MainActivity extends BaseActivity{
      */
     private void initializeView(){
         fragmentSwitcher = new FragmentSwitcher(this);
-
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        arrow = (ImageButton) navigationView.getHeaderView(0).findViewById(R.id.drawer_header_arrow);
         statusBar = findViewById(R.id.status_bar);
         RelativeLayout header = (RelativeLayout) navigationView.getHeaderView(0);
         userName = (TextView) header.findViewById(R.id.drawer_header_user_name);
@@ -167,22 +162,21 @@ public class MainActivity extends BaseActivity{
      * 初始化header中的箭头按钮，点击控制登录/修改密码这两个item的出现与隐藏事件。
      */
     private void setupArrowIndex(){
-        ImageButton arrow = (ImageButton) findViewById(R.id.drawer_header_arrow);
-        arrow.setSelected(SPHelper.getArrowState());
+        setArrowState(SPHelper.getArrowState());
         arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v.isSelected()){
-                    v.setSelected(false);
-                    navigationView.getMenu().setGroupVisible(R.id.navigation_group_user,true);
-                }else{
-                    v.setSelected(true);
-                    navigationView.getMenu().setGroupVisible(R.id.navigation_group_user,false);
-                }
-                SPHelper.setArrowState(v.isSelected());
+               setArrowState(!arrow.isSelected());
             }
         });
     }
+
+    private void setArrowState(boolean which){
+        arrow.setSelected(which);
+        navigationView.getMenu().setGroupVisible(R.id.navigation_group_user,which);
+        SPHelper.setArrowState(which);
+    }
+
 
     /**
      * 处理drawer中item的点击事件

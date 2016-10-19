@@ -28,6 +28,7 @@ public enum  MyFragments {
         public void setStatusBar(View view) {
             view.setBackgroundResource(R.drawable.status_bar_bg);
         }
+
     },
     GUIDE(1){
         @Override

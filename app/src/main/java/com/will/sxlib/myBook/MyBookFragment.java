@@ -74,9 +74,11 @@ public class MyBookFragment extends BaseFragment implements SwipeRefreshLayout.O
             @Override
             public void onSuccess(int count) {
                 if(count == 0){
-                    ((BaseActivity) getActivity()).getSupportActionBar().setTitle("无借阅数据");
+                    //((BaseActivity) getActivity()).getSupportActionBar().setTitle("无借阅数据");
+                    setToolbarTitle("无借阅数据");
                 }else{
-                    ((BaseActivity) getActivity()).getSupportActionBar().setTitle("我的借阅");
+                    //((BaseActivity) getActivity()).getSupportActionBar().setTitle("我的借阅");
+                    setToolbarTitle("我的借阅");
                 }
                 refreshLayout.setRefreshing(false);
             }

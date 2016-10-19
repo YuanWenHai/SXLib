@@ -81,7 +81,7 @@ public class SPHelper {
 
 
     public static boolean getArrowState(){
-        return  configSP.getBoolean("arrow_state",false);
+        return  configSP.getBoolean("arrow_state",true);
     }
     public static void setArrowState(boolean state){
         editor.putBoolean("arrow_state",state).apply();

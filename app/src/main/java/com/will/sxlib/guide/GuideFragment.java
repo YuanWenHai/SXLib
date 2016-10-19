@@ -31,6 +31,7 @@ public class GuideFragment extends BaseFragment {
                 ((MainActivity) getActivity()).changeDrawerState();
             }
         });
+        setToolbarTitle("读者指南");
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.guide_tab_layout);
         pager.setAdapter(new PagerAdapter(getChildFragmentManager()));
         tabLayout.setupWithViewPager(pager);

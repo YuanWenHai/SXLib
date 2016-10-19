@@ -69,6 +69,7 @@ public class FavoriteFragment extends BaseFragment {
             }
         });
         toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
+        setToolbarTitle("我的收藏");
     }
 
     @Override
