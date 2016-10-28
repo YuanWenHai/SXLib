@@ -9,9 +9,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.will.recyclerviewloadingadapter.BaseRecyclerViewHolder;
+import com.will.recyclerviewloadingadapter.LoadingAdapter;
 import com.will.sxlib.R;
-import com.will.sxlib.adapter.BaseRecyclerViewHolder;
-import com.will.sxlib.adapter.CustomRecyclerAdapter;
 import com.will.sxlib.base.MyApplication;
 import com.will.sxlib.bean.Book;
 import com.will.sxlib.bookDetail.BookDetailActivity;
@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by Will on 2016/10/1.
  */
-public class BookListAdapter extends CustomRecyclerAdapter<Book> {
+public class BookListAdapter extends LoadingAdapter<Book> {
     private NetworkHelper helper = NetworkHelper.getInstance();
     private boolean hasMore = true;
     private Context mContext;
@@ -102,7 +102,7 @@ public class BookListAdapter extends CustomRecyclerAdapter<Book> {
                 if(!hasMore && !count.isEmpty()){
                     Toast.makeText(MyApplication.getGlobalContext(),"已到末页",Toast.LENGTH_SHORT).show();
                 }
-                update(true,books);
+                update(books);
                 if(count.isEmpty()){
                     setActivityTitle("无条目发现");
                 }else{

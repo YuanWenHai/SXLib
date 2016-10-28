@@ -10,12 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.will.RemovableView;
 import com.will.sxlib.R;
 import com.will.sxlib.base.MyApplication;
 import com.will.sxlib.bean.Book;
 import com.will.sxlib.bean.FavoriteItem;
 import com.will.sxlib.util.DBManager;
-import com.will.sxlib.view.RemovableView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +98,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.MyHold
             press = (TextView) view.findViewById(R.id.book_item_publisher);
             isbn = (TextView) view.findViewById(R.id.book_item_isbn);
             cover = (ImageView) view.findViewById(R.id.book_item_cover);
-            //这里有点邪门，在使用include引入其他layout后对view设置onClick事件竟失效了，故重新findView
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
