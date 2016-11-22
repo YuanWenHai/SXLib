@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.will.sxlib.base.BaseActivity;
 import com.will.sxlib.base.MyFragments;
 import com.will.sxlib.notification.NotificationChecker;
+import com.will.sxlib.util.DBManager;
 import com.will.sxlib.util.ErrorCode;
 import com.will.sxlib.util.FragmentSwitcher;
 import com.will.sxlib.util.SPHelper;
@@ -370,6 +371,7 @@ public class MainActivity extends BaseActivity{
                 exitToast.show();
             }else{
                 super.onBackPressed();
+                DBManager.getInstance().closeDB();
             }
     }
     @Override

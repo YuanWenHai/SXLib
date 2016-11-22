@@ -82,4 +82,7 @@ public class DBManager {
         value.put("book_number",book.getBookNumber());
         db.insert("favorite","title",value);
     }
+    public void closeDB(){
+        db.close();
+    }
 }
