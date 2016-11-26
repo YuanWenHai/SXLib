@@ -1,34 +1,34 @@
 <resources>
     <string name="app_name">SXLib</string>
-    <string name="lib_local">[{"libcode":"0101","localcode":"wgat","name":"外文及港澳台文献阅览室","cirType":"999_020","showOrder":0},{"libcode":"0101","localcode":"dbk","name":"地方文献报刊阅览室","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"sz","name":"视障阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"sr","name":"少儿阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"bz","name":"报纸阅览室","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"sk1","name":"社科图书第一阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"sk3","name":"社科图书第三阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"dts","name":"地方文献图书阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"tz","name":"特种文献阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"mg","name":"民国文献阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"j1","name":"基藏图书第一阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"j2","name":"基藏图书第二阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"j3","name":"基藏图书第三阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"srgbk","name":"少儿馆报刊阅览室","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"qk","name":"期刊阅览室","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"zk","name":"自科图书阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"t","name":"声像缩微","cirType":"999_006","showOrder":0},{"libcode":"0101","localcode":"e","name":"电子","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"l","name":"流通","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"j","name":"基藏","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"d","name":"地文","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"s","name":"少儿","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"k","name":"信息","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"c","name":"古籍","cirType":"999_009","showOrder":0},{"libcode":"0101","localcode":"q","name":"期刊","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"ltk","name":"流通库","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"qkk","name":"期刊库","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"x","name":"社科新书","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"bzk","name":"报纸库","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"z","name":"周转库","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"m","name":"盲文借阅","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"xbk","name":"现报现刊阅览室","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"srgts","name":"少儿馆图书阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"sk2","name":"社科图书第二阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"sk4","name":"社科图书第四阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"bd66080","name":"66080部队","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"VIP1","name":"VIP第一阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"VIP2","name":"VIP第二阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"VIP3","name":"VIP第三阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"VIP4","name":"VIP第四阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"wjts","name":"借阅书库","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"dwsk","name":"地方文献书刊库","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"dwbz","name":"地方文献报纸库","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"bcbk","name":"保存本库","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"VIP5","name":"VIP第五阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"VIP6","name":"VIP第六阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"wybk","name":"文源馆报刊阅览室","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"sxdjyyyt","name":"山西大剧院音乐厅","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"g","name":"公共区域","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"bd61769","name":"61769部队","cirType":"999_001","showOrder":0}]</string>
-    <string name="state_code">{"0":{"stateType":0,"stateName":"流通还回上架中"},"1":{"stateType":1,"stateName":"编目"},"2":{"stateType":2,"stateName":"在馆"},"3":{"stateType":3,"stateName":"借出"},"4":{"stateType":4,"stateName":"丢失"},"5":{"stateType":5,"stateName":"剔除"},"6":{"stateType":6,"stateName":"交换"},"7":{"stateType":7,"stateName":"赠送"},"8":{"stateType":8,"stateName":"装订"},"9":{"stateType":9,"stateName":"锁定"},"10":{"stateType":10,"stateName":"预借"},"11":{"stateType":12,"stateName":"清点"},"12":{"stateType":13,"stateName":"闭架"},"13":{"stateType":14,"stateName":"修补"},"14":{"stateType":15,"stateName":"查找中"}}</string>
-    <string name="renew_book">我的借阅</string>
-    <string name="search_book">书籍检索</string>
-    <string name="search">搜索</string>
-    <string name="ascending_sort">出版日期——正序</string>
-    <string name="descending_sort">出版日期——倒序</string>
-    <string name="matching_sort">按照匹配程度</string>
-    <string name="call_no">索书号</string>
-    <string name="bar_code">条码号</string>
-    <string name="book_state">馆藏状态</string>
-    <string name="belong_to">所在馆</string>
-    <string name="book_position">所在位置</string>
-    <string name="return_date">归还时间</string>
-    <string name="gcxx">馆藏信息</string>
-    <string name="language">语言: </string>
-    <string name="edition">版次： </string>
-    <string name="theme">主题： </string>
-    <string name="summary">摘要： </string>
-    <string name="page">载体形态： </string>
-    <string name="loading">加载中···</string>
-    <string name="anonymous_reader">匿名读者</string>
-    <string name="login_logout">登陆/退出</string>
-    <string name="account">账号</string>
-    <string name="password">密码</string>
-    <string name="login">登陆</string>
-    <string name="cancel">取消</string>
-    <string name="reader_guide">读者指南</string>
-    <string name="introduction_content">
+    <string name="lib_local" translatable="false">[{"libcode":"0101","localcode":"wgat","name":"外文及港澳台文献阅览室","cirType":"999_020","showOrder":0},{"libcode":"0101","localcode":"dbk","name":"地方文献报刊阅览室","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"sz","name":"视障阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"sr","name":"少儿阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"bz","name":"报纸阅览室","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"sk1","name":"社科图书第一阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"sk3","name":"社科图书第三阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"dts","name":"地方文献图书阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"tz","name":"特种文献阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"mg","name":"民国文献阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"j1","name":"基藏图书第一阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"j2","name":"基藏图书第二阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"j3","name":"基藏图书第三阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"srgbk","name":"少儿馆报刊阅览室","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"qk","name":"期刊阅览室","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"zk","name":"自科图书阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"t","name":"声像缩微","cirType":"999_006","showOrder":0},{"libcode":"0101","localcode":"e","name":"电子","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"l","name":"流通","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"j","name":"基藏","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"d","name":"地文","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"s","name":"少儿","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"k","name":"信息","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"c","name":"古籍","cirType":"999_009","showOrder":0},{"libcode":"0101","localcode":"q","name":"期刊","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"ltk","name":"流通库","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"qkk","name":"期刊库","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"x","name":"社科新书","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"bzk","name":"报纸库","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"z","name":"周转库","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"m","name":"盲文借阅","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"xbk","name":"现报现刊阅览室","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"srgts","name":"少儿馆图书阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"sk2","name":"社科图书第二阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"sk4","name":"社科图书第四阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"bd66080","name":"66080部队","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"VIP1","name":"VIP第一阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"VIP2","name":"VIP第二阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"VIP3","name":"VIP第三阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"VIP4","name":"VIP第四阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"wjts","name":"借阅书库","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"dwsk","name":"地方文献书刊库","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"dwbz","name":"地方文献报纸库","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"bcbk","name":"保存本库","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"VIP5","name":"VIP第五阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"VIP6","name":"VIP第六阅览室","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"wybk","name":"文源馆报刊阅览室","cirType":"999_002","showOrder":0},{"libcode":"0101","localcode":"sxdjyyyt","name":"山西大剧院音乐厅","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"g","name":"公共区域","cirType":"999_001","showOrder":0},{"libcode":"0101","localcode":"bd61769","name":"61769部队","cirType":"999_001","showOrder":0}]</string>
+    <string name="state_code" translatable="false">{"0":{"stateType":0,"stateName":"流通还回上架中"},"1":{"stateType":1,"stateName":"编目"},"2":{"stateType":2,"stateName":"在馆"},"3":{"stateType":3,"stateName":"借出"},"4":{"stateType":4,"stateName":"丢失"},"5":{"stateType":5,"stateName":"剔除"},"6":{"stateType":6,"stateName":"交换"},"7":{"stateType":7,"stateName":"赠送"},"8":{"stateType":8,"stateName":"装订"},"9":{"stateType":9,"stateName":"锁定"},"10":{"stateType":10,"stateName":"预借"},"11":{"stateType":12,"stateName":"清点"},"12":{"stateType":13,"stateName":"闭架"},"13":{"stateType":14,"stateName":"修补"},"14":{"stateType":15,"stateName":"查找中"}}</string>
+    <string name="renew_book" translatable="false">我的借阅</string>
+    <string name="search_book" translatable="false">书籍检索</string>
+    <string name="search" translatable="false">搜索</string>
+    <string name="ascending_sort" translatable="false">出版日期——正序</string>
+    <string name="descending_sort" translatable="false">出版日期——倒序</string>
+    <string name="matching_sort" translatable="false">按照匹配程度</string>
+    <string name="call_no" translatable="false">索书号</string>
+    <string name="bar_code" translatable="false">条码号</string>
+    <string name="book_state" translatable="false">馆藏状态</string>
+    <string name="belong_to" translatable="false">所在馆</string>
+    <string name="book_position" translatable="false">所在位置</string>
+    <string name="return_date" translatable="false">归还时间</string>
+    <string name="gcxx" translatable="false">馆藏信息</string>
+    <string name="language" translatable="false">语言: </string>
+    <string name="edition" translatable="false">版次： </string>
+    <string name="theme" translatable="false">主题： </string>
+    <string name="summary" translatable="false">摘要： </string>
+    <string name="page" translatable="false">载体形态： </string>
+    <string name="loading" translatable="false">加载中···</string>
+    <string name="anonymous_reader" translatable="false">匿名读者</string>
+    <string name="login_logout" translatable="false">登陆/退出</string>
+    <string name="account" translatable="false">账号</string>
+    <string name="password" translatable="false">密码</string>
+    <string name="login" translatable="false">登陆</string>
+    <string name="cancel" translatable="false">取消</string>
+    <string name="reader_guide" translatable="false">读者指南</string>
+    <string name="introduction_content" translatable="false">
              &#160; &#160;  山西省图书馆是国内为数不多的百年老馆之一，是由政府主办的公益性、免费对外开放的公共文化场所。\n
              &#160; &#160;山西省图书馆创始于清宣统元年（1909），历经风雨，数易其名。1919年为山西教育图书博物馆，1925年为山西公立图书馆，1933年为山西省立民众教育馆，1949年为山西省图书博物馆。1957年成立山西省图书馆筹备处，正式与博物馆分离独立建制，馆址选在迎泽公园西畔文源巷（文源巷因此而得名）。1960年8月28日，山西省图书馆正式对外开放，文坛泰斗郭沫若亲笔题写馆名。\n
              &#160; &#160;山西省图书馆馆藏资源丰富。馆藏总量340余万册（件），其中图书169万册，报刊87万册，古籍30万册（件），视听、缩微、电子图书及其他文献54万册（件）。馆藏珍品包括北宋雍熙三年刻《佛说北斗七星经》、伪齐阜昌八年刻《成唯识论了义灯钞科文》等海内外孤本，以及明嘉靖《山西通志》、刘大鹏《退想斋日记》等珍稀地方文献和特色文献。馆藏数字资源35TB，包括CNKI中国知网、万方数据资源系统、龙源电子期刊阅览室、方正阿帕比电子书、超星读秀知识库等大型品牌数据库和自建山西地方特色数字资源库。\n
@@ -36,8 +36,8 @@
              &#160; &#160;山西省图书馆提供多样化的服务。传统服务有阅览、外借、文献复制、视听文献服务、馆际互借、公益讲座、公益展览、社会培训等，现代服务有数字资源服务、电子阅报、移动图书馆服务、网络信息服务等，特色服务有古籍修复、参考咨询、视障服务等，基本涵盖了现代图书馆的服务功能，形成传统服务与数字服务相融合的现代化服务新格局。\n
              &#160; &#160;新馆新气象。山西省图书馆将全面贯彻党的十七届六中全会和十八大精神，按照省委、省政府的战略部署，在上级有关部门的正确领导下，深入贯彻落实科学发展观，“高举旗帜、围绕大局、服务人民、改革创新”，按照“公益性、基本性、均等性、便利性”要求，充分发挥图书馆知识中心、信息中心和社会教育中心的独特作用，承载起时代赋予的历史使命，担当起公共文化建设的主体责任，不断改善基础条件，大力提升服务水平，按照基本服务优质化、专题服务品牌化、文献借阅智能化、服务方式多元化、重点工作深入化、业务管理体系化、内部管理规范化、后勤服务社会化的标准和要求，以打造全省知识中心、情报信息中心、文献保障中心、社会教育中心、古籍保护中心、公共数字文化建设中心、公众文化休闲中心七位一体的公益文化场所为基本目标，齐心协力，开拓创新，奋发有为，努力实现一流的环境、一流的书籍、一流的管理、一流的服务、一流的成果、一流的队伍，不断谱写山西省图书馆事业发展的新篇章，为山西文化强省建设做出应有的贡献！\n
     </string>
-    <string name="introduction">山西省图书馆简介</string>
-    <string name="lib_navigation">
+    <string name="introduction" translatable="false">山西省图书馆简介</string>
+    <string name="lib_navigation" translatable="false">
  &#160;地 址：太原市长风商务区广经路5号\n
 邮 编：030021\n
 电 话：0351—4072653\n
@@ -47,11 +47,11 @@
         57路、619路、823路、851支、858路、864路、868路到长风桥西站下车；\n
         816路、823路到山姆士学府店下车；\n
 开馆时间：周二到周日，9:00—17:00\n</string>
-    <string name="card_1">一、申办读者证手续\n
+    <string name="card_1" translatable="false">一、申办读者证手续\n
 读者办证持本人身份证或户口簿，军人、武警可凭个人有效证件，外国公民需持护照（上述证件均为原件，每位读者只限办理一个读者证），在山西省图书馆咨询办证台填写《山西省图书馆读者证申请表》即可办理。\n
     二、读者证的类型和功能\n
 （一）读者可根据需要选择以下其中一种读者证类型\n </string>
-    <string name="card_2">注：读者证已开通馆际借阅，可在全省各公共图书馆借阅图书。 \n\n
+    <string name="card_2" translatable="false">注：读者证已开通馆际借阅，可在全省各公共图书馆借阅图书。 \n\n
 （二）如需转换读者证类型，可到咨询办证台凭读者证及本人身份证或户口簿原件，补交或退还押金差额，即可办理。\n
 （三）读者证可长期使用，实行年度注册，满一年后到办证台免费注册。
 （四）持证读者登录山西省图书馆网站(http://lib.sx.cn)可进行文献续借或查询，并可通过晋图数字资源服务平台免费使用山西省图书馆的数字资源。\n
@@ -65,13 +65,13 @@
 （三）读者须遵守馆内各项规章制度。\n
 （四）请爱护读者证，避免磨损、折断、自行变更相关信息等，若由此导致读者证无法使用，责任由持证者承担。\n
 咨询电话：0351-4072653\n</string>
-    <string name="old_password">旧密码</string>
-    <string name="new_password">新密码</string>
-    <string name="change">修改</string>
-    <string name="change_password">修改密码</string>
-    <string name="loading_failed">加载失败，请重试</string>
-    <string name="return_notification">到期通知</string>
-    <string name="favorite">关注本书</string>
-    <string name="my_favorite">我的收藏</string>
-    <string name="loanable_notification">可续借时提醒我</string>
+    <string name="old_password" translatable="false">旧密码</string>
+    <string name="new_password" translatable="false">新密码</string>
+    <string name="change" translatable="false">修改</string>
+    <string name="change_password" translatable="false">修改密码</string>
+    <string name="loading_failed" translatable="false">加载失败，请重试</string>
+    <string name="return_notification" translatable="false">到期通知</string>
+    <string name="favorite" translatable="false">关注本书</string>
+    <string name="my_favorite" translatable="false">我的收藏</string>
+    <string name="loanable_notification" translatable="false">可续借时提醒我</string>
 </resources>
